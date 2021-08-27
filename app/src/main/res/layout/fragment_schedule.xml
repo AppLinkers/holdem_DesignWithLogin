@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.schedule.ScheduleFragment"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingRight="25dp"
+        android:paddingLeft="25dp"
+        android:paddingBottom="0dp"
+        android:paddingTop="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+            <ImageView
+                android:id="@+id/minus_month"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_navigate_left"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true" />
+            <TextView
+                android:id="@+id/tv_year_month_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2021.08"
+                android:textSize="16sp"
+                android:layout_centerHorizontal="true"/>
+            <ImageView
+                android:id="@+id/plus_month"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_navigate_right"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="총 10개 일정"
+            android:id="@+id/count"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textStyle="bold"
+            android:textColor="#800000"/>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.3dp"
+            android:layout_marginTop="10dp"
+            android:background="#2C000000" />
+    </LinearLayout>
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+</LinearLayout>
