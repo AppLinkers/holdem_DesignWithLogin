@@ -53,9 +53,14 @@
                 android:text="시간"
                 android:textSize="12sp"/>
 
+            <TextView
+                android:id="@+id/pub_detail_game"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="play 게임: "
+                android:textSize="12sp"/>
+
         </LinearLayout>
-
-
         </LinearLayout>
 
     </ScrollView>

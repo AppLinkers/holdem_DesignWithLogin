@@ -3,6 +3,7 @@ package com.example.ticket.ui.schedule;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.AsyncTask;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +32,6 @@ public class ScheduleFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<Schedule> list = new ArrayList<>();
     private SRecycleAdapter adapter;
-
     private static final String TAG = "SchedulePage";
 
     TextView count;
@@ -114,7 +114,13 @@ public class ScheduleFragment extends Fragment {
 
         // 티켓 개수 반영 안됨
 
+
+
     }
+
+
+
+
 
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
 

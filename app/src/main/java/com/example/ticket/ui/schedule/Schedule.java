@@ -23,6 +23,7 @@ public class Schedule {
     }
 
     public void setPoster(String poster) {
+
         this.poster = poster;
     }
 

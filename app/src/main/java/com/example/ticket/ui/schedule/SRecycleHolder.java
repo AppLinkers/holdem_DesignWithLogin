@@ -1,8 +1,6 @@
 package com.example.ticket.ui.schedule;
 
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.MediaStore;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.ticket.R;
+import com.example.ticket.ScheduleImageActivity;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 
 
 public class SRecycleHolder extends RecyclerView.ViewHolder {
@@ -25,6 +23,7 @@ public class SRecycleHolder extends RecyclerView.ViewHolder {
     public TextView time;
     public TextView ticket;
     public ImageView poster;
+    public String posterSrc;
 
     public SRecycleHolder(@NonNull @NotNull View itemView) {
         super(itemView);
@@ -43,5 +42,17 @@ public class SRecycleHolder extends RecyclerView.ViewHolder {
         time.setText(data.getTime());
         name.setText(data.getName());
         ticket.setText(data.getTicket());
+        posterSrc = data.getPoster();
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(view.getContext(), ScheduleImageActivity.class);
+                intent1.putExtra("poster", posterSrc);
+                view.getContext().startActivity(intent1);
+            }
+        });
+
     }
+
 }

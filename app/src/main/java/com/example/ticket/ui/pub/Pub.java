@@ -6,13 +6,23 @@ public class Pub {
     String place;
     String game;
     String time;
+    String intro;
 
-    public Pub (String name, String place, String game, String time) {
+    public Pub (String name, String place, String game, String time, String intro) {
 
         this.name =name;
         this.place =place;
         this.game = game;
         this.time = time;
+        this.intro = intro;
+    }
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
     }
 
     public String getName() {
