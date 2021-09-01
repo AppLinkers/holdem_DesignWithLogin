@@ -31,6 +31,7 @@ public class SRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecyclerView.ViewHolder holder, int position) {
         ((SRecycleHolder)holder).onBind(listData.get(position));
+
     }
 
     @Override
