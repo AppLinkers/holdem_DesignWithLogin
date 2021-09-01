@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.start.SignInPage"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:layout_marginTop="160dp"
+        android:text="Welcome back!!"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="please, sign in to continue"/>
+
+    <EditText
+        android:id="@+id/login_user_id"
+        android:layout_marginTop="120dp"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:hint="Username"/>
+    <EditText
+        android:id="@+id/login_user_pass"
+        android:layout_marginTop="20dp"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:inputType="textPassword"
+        android:hint="password"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:text="Remember me"/>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:onClick="login"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="50dp"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:background="#00CCFF"
+        android:textColor="#ffff"
+        android:text="Sign In"
+        android:layout_gravity="center"/>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't have an account?  "/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#00CCFF"
+            android:onClick="goToSignUp"
+            android:text="Sign up"/>
+
+    </LinearLayout>
+
+</LinearLayout>

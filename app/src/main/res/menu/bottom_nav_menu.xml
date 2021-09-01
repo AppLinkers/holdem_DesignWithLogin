@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/title_home"
+        />
+        <item
+        android:id="@+id/navigation_schedule"
+        android:icon="@drawable/ic_champion"
+        android:title="대회일정"/>
+    <item
+        android:id="@+id/navigation_pub"
+        android:icon="@drawable/ic_explore"
+        android:title="홀덤펍"/>
+    <item
+        android:id="@+id/navigation_ticket"
+        android:icon="@drawable/ic_card"
+        android:title="@string/title_ticket" />
+    <item
+        android:id="@+id/navigation_mypage"
+        android:icon="@drawable/ic_user"
+        android:title="@string/title_myPage" />
+
+</menu>
