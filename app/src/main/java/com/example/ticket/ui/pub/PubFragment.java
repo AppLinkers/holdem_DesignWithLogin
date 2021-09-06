@@ -1,6 +1,9 @@
 package com.example.ticket.ui.pub;
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ticket.R;
+import com.example.ticket.ui.dataService.DataService;
+import com.example.ticket.ui.entity.Competition;
+import com.example.ticket.ui.entity.Game;
+import com.example.ticket.ui.entity.HoldemPub;
+import com.example.ticket.ui.schedule.Schedule;
+
+import java.io.IOException;
+import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PubFragment extends Fragment {
 
@@ -22,6 +38,10 @@ public class PubFragment extends Fragment {
     private TextView tv_pub;
     private RecyclerView recyclerView;
     private PRecycleAdapter adapter;
+
+    private String TAG = "PubFragment";
+
+    DataService dataService = new DataService();
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -55,19 +75,45 @@ public class PubFragment extends Fragment {
 
 
     //리사이클러뷰 데이터
+    @SuppressLint({"StaticFieldLeak", "NewApi"})
     public void getData(){
-        Pub h1 = new Pub( "Final Nine", "강남",
-                "1 데일리, 3장 몬스터, 1.5장 게임", "14:00","여기는 바가바가 넘치는 강남 파이널나인 ");
-        Pub h2 = new Pub( "Final Nine", "홍대",
-                "1장 데일리, 3장 몬스터, 1.5장 게임", "14:00","여기는 바가바가 넘치는 홍대 파이널나인 ");
-        Pub h3 = new Pub( "Battle Play Pub", "홍대",
-                "1장 데일리", "14:00", "여기는 할 게임이 많은 배틀플레이 펍 ");
-        Pub h4 = new Pub( "레인보우", "강남",
-                "10장 메인 하이롤러, 20장 사이", "14:00", "여기는 코로나가 이빠이인 레인보우 펍 ");
 
-        adapter.addItem(h1);
-        adapter.addItem(h2);
-        adapter.addItem(h3);
-        adapter.addItem(h4);
+        AsyncTask<Void, Void, List<HoldemPub>> listAPI = new AsyncTask<Void, Void, List<HoldemPub>>() {
+            @Override
+            protected List<HoldemPub> doInBackground(Void... params) {
+                Call<List<HoldemPub>> call = dataService.holdemPubs.holdemPubs();
+                try {
+                    return call.execute().body();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(List<HoldemPub> s) {
+                super.onPostExecute(s);
+            }
+        }.execute();
+
+
+        List<HoldemPub> result = null;
+
+        try {
+            result = listAPI.get();
+            Log.d(TAG, String.valueOf(result));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (result != null) {
+            result.forEach(c -> {
+
+
+                Pub pub = new Pub(c.getPub_name(), c.getPub_place(), c.getGame().games(), c.getPub_open(), c.getPub_info(),c.getPub_img());
+                adapter.addItem(pub);
+
+            });
+        }
     }
 }

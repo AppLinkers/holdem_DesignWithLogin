@@ -20,5 +20,6 @@ public class DataService {
     public SingUp singUp = retrofitClient.create(SingUp.class);
     public Login login = retrofitClient.create(Login.class);
     public Schedules schedules = retrofitClient.create(Schedules.class);
+    public HoldemPubs holdemPubs = retrofitClient.create(HoldemPubs.class);
 }
 

@@ -112,7 +112,6 @@ public class ScheduleFragment extends Fragment {
             });
         }
 
-        // 티켓 개수 반영 안됨
 
 
 

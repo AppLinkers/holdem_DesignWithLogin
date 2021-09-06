@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/pub_poster"
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:background="#2C000000"
@@ -24,6 +25,7 @@
             android:textColor="@color/black"
             android:paddingBottom="3dp"/>
         <TextView
+            android:id="@+id/pub_intro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="매장 설명"
