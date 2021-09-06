@@ -13,6 +13,9 @@
         <entry key="..\:/holdem/holdem_DesignWithLogin-main/app/src/main/res/layout/pub_detail.xml" value="0.2046875" />
         <entry key="..\:/holdem/holdem_DesignWithLogin-main/app/src/main/res/layout/pub_item.xml" value="0.31141868512110726" />
         <entry key="..\:/holdem/holdem_DesignWithLogin-main/app/src/main/res/layout/schedule_item.xml" value="0.25364583333333335" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.16770833333333332" />
+        <entry key="app/src/main/res/layout/activity_schedule_image.xml" value="0.10099637681159421" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.16770833333333332" />
       </map>
     </option>
   </component>
