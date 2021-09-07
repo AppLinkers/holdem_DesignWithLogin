@@ -2,9 +2,9 @@
 <resources>
     <string-array name="pub">
         <item>전국</item>
-        <item>서울</item>
-        <item>부산</item>
-        <item>경기</item>
+        <item> 강남 </item>
+        <item> 홍대 </item>
+        <item> 건대 </item>
         <item>그 외</item>
     </string-array>
 </resources>
