@@ -1,29 +1,37 @@
 package com.example.ticket.ui.ticket;
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ticket.R;
-import com.example.ticket.databinding.FragmentTicketBinding;
-import com.example.ticket.ui.home.HomeFragment;
-import com.example.ticket.ui.pub.PRecycleAdapter;
-import com.example.ticket.ui.pub.Pub;
+import com.example.ticket.ui.dataService.DataService;
+import com.example.ticket.ui.dataService.Tickets;
+import com.example.ticket.ui.entity.TicketDto;
+
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.List;
+
+import retrofit2.Call;
 
 public class TicketFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private TRecycleAdapter adapter;
+    private static final String TAG = "TicketPage";
+
+    DecimalFormat decimalFormat = new DecimalFormat("###,###");
+    DataService dataService = new DataService();
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -40,17 +48,50 @@ public class TicketFragment extends Fragment {
         return root;
     }
 
-    public void getData() {
-        Ticket t1 = new Ticket("ASL 티켓", "서울", "200,000");
-        Ticket t2 = new Ticket("BPP 티켓", "강원", "100,000");
-        Ticket t3 = new Ticket("KSOP 티켓", "부산", "150,000");
-        Ticket t4 = new Ticket("ASL 티켓", "하남", "100,000");
-        Ticket t5 = new Ticket("LCK 티켓", "해남", "200,000");
+    //리사이클러뷰 데이터
+    @SuppressLint({"StaticFieldLeak", "NewApi"})
+    public void getData(){
 
-        adapter.addItem(t1);
-        adapter.addItem(t2);
-        adapter.addItem(t3);
-        adapter.addItem(t4);
-        adapter.addItem(t5);
+        AsyncTask<Void, Void, List<TicketDto>> listAPI = new AsyncTask<Void, Void, List<TicketDto>>() {
+            @Override
+            protected List<TicketDto> doInBackground(Void... params) {
+                Call<List<TicketDto>> call = dataService.tickets.tickets();
+                try {
+                    return call.execute().body();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(List<TicketDto> s) {
+                super.onPostExecute(s);
+            }
+        }.execute();
+
+
+        List<TicketDto> result = null;
+
+        try {
+            result = listAPI.get();
+            Log.d(TAG, String.valueOf(result));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (result != null) {
+            result.forEach(c -> {
+
+                String price = decimalFormat.format(c.getTicket_price());
+
+                Ticket ticket = new Ticket(c.getTicket_name(), c.getTicket_place(),price,c.getTicket_poster());
+                adapter.addItem(ticket);
+
+            });
+        }
+
+
+
     }
 }
