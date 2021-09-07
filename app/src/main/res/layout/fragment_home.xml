@@ -175,12 +175,13 @@
                     />
 
                 <ImageView
+                    android:id="@+id/goToSchedule"
                     android:layout_width="30dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_navigate_right"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
-                    android:paddingBottom="5dp"/>
+                    android:paddingBottom="5dp"
+                    android:src="@drawable/ic_navigate_right" />
             </RelativeLayout>
 
             <HorizontalScrollView
@@ -203,6 +204,7 @@
                         android:orientation="vertical"
                         android:gravity="center"
                         android:elevation="5dp">
+
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -213,6 +215,7 @@
                                 android:src="@drawable/holldom"
                                 android:scaleType="centerCrop"/>
                         </androidx.cardview.widget.CardView>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -247,6 +250,7 @@
                         android:orientation="vertical"
                         android:gravity="center"
                         android:elevation="5dp">
+
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -257,6 +261,7 @@
                                 android:src="@drawable/hpl"
                                 android:scaleType="centerCrop"/>
                         </androidx.cardview.widget.CardView>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -354,10 +359,11 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_navigate_right"
+                    android:id="@+id/goToPub"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
-                    android:paddingBottom="5dp"/>
+                    android:paddingBottom="5dp"
+                    android:src="@drawable/ic_navigate_right" />
             </RelativeLayout>
 
             <HorizontalScrollView

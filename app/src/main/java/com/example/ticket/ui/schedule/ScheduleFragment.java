@@ -40,6 +40,10 @@ public class ScheduleFragment extends Fragment {
 
     TextView tv_year_month_picker;
 
+    public static ScheduleFragment newInstance() {
+        return new ScheduleFragment();
+    }
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

@@ -2,18 +2,21 @@ package com.example.ticket.ui.home;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.ticket.MainActivity;
 import com.example.ticket.R;
+import com.example.ticket.ui.pub.PubFragment;
+import com.example.ticket.ui.schedule.ScheduleFragment;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,8 @@ public class HomeFragment extends Fragment {
     public TypedArray m_ArrayBannerImages;
     private ViewPager2 m_viewPager2Banner;
     private ViewPager2Adapter adapter;
+    private ImageView goToPub;
+    private ImageView gotToSchedule;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -56,8 +61,29 @@ public class HomeFragment extends Fragment {
 //        m_viewPager2Banner.setAdapter(adapter);
 //        m_viewPager2Banner.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
 
+
+        goToPub = root.findViewById(R.id.goToPub);
+        gotToSchedule = root.findViewById(R.id.goToSchedule);
+
+        goToPub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),"adf",Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).replaceFragment(PubFragment.newInstance());
+            }
+        });
+
+        gotToSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).replaceFragment(ScheduleFragment.newInstance());
+            }
+        });
+
         return root;
     }
+
+
 
 
     public void imgData(){

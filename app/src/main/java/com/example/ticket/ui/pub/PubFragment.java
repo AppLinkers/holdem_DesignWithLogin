@@ -43,6 +43,10 @@ public class PubFragment extends Fragment {
 
     DataService dataService = new DataService();
 
+    public static PubFragment newInstance() {
+        return new PubFragment();
+    }
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

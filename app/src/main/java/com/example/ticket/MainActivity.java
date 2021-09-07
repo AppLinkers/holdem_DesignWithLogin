@@ -2,7 +2,12 @@ package com.example.ticket;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ticket.ui.home.HomeFragment;
 import com.example.ticket.ui.mypage.MypageFragment;
@@ -10,12 +15,6 @@ import com.example.ticket.ui.pub.PubFragment;
 import com.example.ticket.ui.schedule.ScheduleFragment;
 import com.example.ticket.ui.ticket.TicketFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -68,6 +67,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_container, fragment).commit();      // Fragment로 사용할 MainActivity내의 layout공간을 선택합니다.
     }
 
 
