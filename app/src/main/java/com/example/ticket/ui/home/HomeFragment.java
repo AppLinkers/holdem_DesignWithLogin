@@ -1,15 +1,16 @@
 package com.example.ticket.ui.home;
 
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -66,17 +67,18 @@ public class HomeFragment extends Fragment {
         gotToSchedule = root.findViewById(R.id.goToSchedule);
 
         goToPub.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),"adf",Toast.LENGTH_SHORT).show();
-                ((MainActivity)getActivity()).replaceFragment(PubFragment.newInstance());
+                ((MainActivity)getActivity()).replace(PubFragment.newInstance(),R.id.navigation_pub);
             }
         });
 
         gotToSchedule.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceFragment(ScheduleFragment.newInstance());
+                ((MainActivity)getActivity()).replace(ScheduleFragment.newInstance(),R.id.navigation_schedule);
             }
         });
 
