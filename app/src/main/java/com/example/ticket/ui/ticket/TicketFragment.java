@@ -38,6 +38,7 @@ public class TicketFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_ticket, container, false);
+
         recyclerView = (RecyclerView) root.findViewById(R.id.rc_ticket);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
