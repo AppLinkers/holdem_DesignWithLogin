@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -17,10 +17,10 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:id="@+id/chatID"
             android:layout_marginRight="20dp"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:text="이름: "/>
 
         <TextView

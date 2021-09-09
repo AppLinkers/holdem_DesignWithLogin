@@ -10,9 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,9 +34,10 @@ public class TicketFragment extends Fragment{
 
     private RecyclerView recyclerView;
     private TRecycleAdapter adapter;
-//    private SearchView searchView;
-//    ArrayList<Ticket> arrayList;
     private static final String TAG = "TicketPage";
+
+    private SearchView searchView;
+    ArrayList<Ticket> arrayList;
 
 
     DecimalFormat decimalFormat = new DecimalFormat("###,###");
@@ -49,28 +50,30 @@ public class TicketFragment extends Fragment{
         View root = inflater.inflate(R.layout.fragment_ticket, container, false);
 
         recyclerView = (RecyclerView) root.findViewById(R.id.rc_ticket);
-//        searchView = (SearchView) root.findViewById(R.id.searchView);
-//        arrayList = new ArrayList<>();
+        searchView = (androidx.appcompat.widget.SearchView) root.findViewById(R.id.searchView);
+        arrayList = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
+
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        adapter = new TRecycleAdapter(getContext(),arrayList);
+
         adapter = new TRecycleAdapter();
         getData();
         recyclerView.setAdapter(adapter);
 
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                adapter.getFilter().filter(newText);
-//                return false;
-//            }
-//        });
-
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                getData();
+                recyclerView.setAdapter(adapter);
+                return false;
+            }
+        });
         return root;
     }
 

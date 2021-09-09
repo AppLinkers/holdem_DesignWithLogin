@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -32,6 +34,7 @@ public class ScheduleFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<Schedule> list = new ArrayList<>();
     private SRecycleAdapter adapter;
+    String dateFil="";
     private static final String TAG = "SchedulePage";
 
     TextView count;
@@ -39,6 +42,8 @@ public class ScheduleFragment extends Fragment {
     DataService dataService = new DataService();
 
     TextView tv_year_month_picker;
+    RelativeLayout select_date;
+
 
     public static ScheduleFragment newInstance() {
         return new ScheduleFragment();
@@ -56,16 +61,17 @@ public class ScheduleFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         adapter = new SRecycleAdapter();
-        getData();
+        getData(dateFil);
         recyclerView.setAdapter(adapter);
 
         count = root.findViewById(R.id.count);
         count.setText("총 "+adapter.getItemCount()+" 개 일정");
 
         //datePicker
+        select_date = root.findViewById(R.id.select_date);
         tv_year_month_picker = root.findViewById(R.id.tv_year_month_picker);
 
-        tv_year_month_picker.setOnClickListener(new View.OnClickListener() {
+        select_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 YearMonthPickerDialog pd = new YearMonthPickerDialog();
@@ -74,11 +80,12 @@ public class ScheduleFragment extends Fragment {
             }
         });
 
+
         return root;
     }
 
     @SuppressLint({"StaticFieldLeak", "NewApi"})
-    public void getData(){
+    public void getData(String filter){
 
         AsyncTask<Void, Void, List<Competition>> listAPI = new AsyncTask<Void, Void, List<Competition>>() {
             @Override
@@ -110,8 +117,12 @@ public class ScheduleFragment extends Fragment {
         if (result != null) {
             result.forEach(c -> {
 
-                Schedule schedule = new Schedule(c.getCmp_img(), c.getCmp_name(), c.getCmp_place(), Integer.toString(c.getCmp_buyIn()), c.getCmp_start());
-                adapter.addItem(schedule);
+                if(c.getCmp_start().contains(filter)){
+                    Schedule schedule = new Schedule(c.getCmp_img(), c.getCmp_name(), c.getCmp_place(), Integer.toString(c.getCmp_buyIn()), c.getCmp_start());
+                    adapter.addItem(schedule);
+                }
+
+
 
             });
         }
@@ -132,15 +143,24 @@ public class ScheduleFragment extends Fragment {
 
             Log.d("YearMonthPicker", "year = " + year + ", month = " + month + ", day = " + dayOfMonth);
             if(month < 10){
+                dateFil= year+".0"+month;
                 tv_year_month_picker.setText(year + ".0" + month);
+                adapter = new SRecycleAdapter();
+                getData(dateFil);
+                recyclerView.setAdapter(adapter);
+                Toast.makeText(getContext(),dateFil,Toast.LENGTH_SHORT).show();
             } else {
+                dateFil= year+"."+month;
                 tv_year_month_picker.setText(year + "." + month);
+                adapter = new SRecycleAdapter();
+                getData(dateFil);
+                recyclerView.setAdapter(adapter);
+                Toast.makeText(getContext(),dateFil,Toast.LENGTH_SHORT).show();
             }
 
 
         }
     };
-
 
 
 }
