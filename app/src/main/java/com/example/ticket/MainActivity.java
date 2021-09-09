@@ -75,10 +75,15 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void replace(Fragment fragment, int menuItem) {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,fragment).commit();
+        navigationBlink(menuItem);
+
+
+    }
+
+
+    public void navigationBlink(int menuItem){
         MenuItem selectedItem = bottomNavigationView.getMenu().findItem(menuItem);
         selectedItem.setChecked(true);
-
-
     }
 
 
