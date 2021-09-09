@@ -24,8 +24,10 @@ public class ChatActivity extends AppCompatActivity {
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new ChatAdapter();
+        scrollToBottom();
         getData();
         recyclerView.setAdapter(adapter);
     }
@@ -52,5 +54,9 @@ public class ChatActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
         }
 
+    }
+
+    public void scrollToBottom(){
+        recyclerView.canScrollVertically(0);
     }
 }
