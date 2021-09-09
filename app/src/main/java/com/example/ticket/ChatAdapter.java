@@ -1,8 +1,10 @@
 package com.example.ticket;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,13 +13,15 @@ import java.util.ArrayList;
 
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<Chat> listData = new ArrayList<>();
+    LinearLayout chatItem;
 
+    View view;
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_item, parent, false);
-
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_item, parent, false);
+        chatItem = view.findViewById(R.id.chatItem);
         return new ChatRecycleHolder(view);
     }
 
@@ -33,5 +37,8 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public void addItem(Chat data){
         listData.add(data);
+    }
+
+    public void meSend(){
     }
 }

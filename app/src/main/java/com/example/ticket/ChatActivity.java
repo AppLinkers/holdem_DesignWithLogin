@@ -32,10 +32,10 @@ public class ChatActivity extends AppCompatActivity {
 
     public void getData(){
 
-        Chat chat1 = new Chat("jung: ", "first message");
-        Chat chat2 = new Chat("jung: ", "second message");
-        Chat chat3 = new Chat("ahn: ", "third message");
-        Chat chat4 = new Chat("you: ", "fourth message");
+        Chat chat1 = new Chat("jung ", "first message");
+        Chat chat2 = new Chat("jung ", "second message");
+        Chat chat3 = new Chat("ahn ", "third message");
+        Chat chat4 = new Chat("you ", "fourth message");
 
         adapter.addItem(chat1);
         adapter.addItem(chat2);
@@ -46,7 +46,11 @@ public class ChatActivity extends AppCompatActivity {
 
     public void send(View view) {
         Chat newchat = new Chat("jung: ", mycontext.getText()+"");
-        adapter.addItem(newchat);
-        recyclerView.setAdapter(adapter);
+        if(newchat.chatID.equals("jung: ")){
+            adapter.meSend();
+            adapter.addItem(newchat);
+            recyclerView.setAdapter(adapter);
+        }
+
     }
 }
