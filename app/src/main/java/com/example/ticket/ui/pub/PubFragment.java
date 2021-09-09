@@ -38,6 +38,7 @@ public class PubFragment extends Fragment {
     private TextView tv_pub;
     private RecyclerView recyclerView;
     private PRecycleAdapter adapter;
+    private String pubFilteredKey="";
 
     private String TAG = "PubFragment";
 
@@ -54,10 +55,25 @@ public class PubFragment extends Fragment {
         //지역 필터
         spinner = (Spinner) root.findViewById(R.id.sp_pub);
         tv_pub = (TextView) root.findViewById(R.id.tv_pub);
+
+        recyclerView = root.findViewById(R.id.rcPub);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        adapter =new PRecycleAdapter();
+        getData(pubFilteredKey);
+        recyclerView.setAdapter(adapter);
+
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                tv_pub.setText(parent.getItemAtPosition(position).toString());
+                pubFilteredKey = parent.getItemAtPosition(position).toString();
+                tv_pub.setText(pubFilteredKey);
+                adapter =new PRecycleAdapter();
+                getData(pubFilteredKey);
+                recyclerView.setAdapter(adapter);
             }
 
             @Override
@@ -65,13 +81,8 @@ public class PubFragment extends Fragment {
 
             }
         });
-        //리사이클러뷰
-        recyclerView = root.findViewById(R.id.rcPub);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        adapter =new PRecycleAdapter();
-        getData();
-        recyclerView.setAdapter(adapter);
+
+
 
 
         return root;
@@ -80,7 +91,7 @@ public class PubFragment extends Fragment {
 
     //리사이클러뷰 데이터
     @SuppressLint({"StaticFieldLeak", "NewApi"})
-    public void getData(){
+    public void getData(String filteredKey){
 
         AsyncTask<Void, Void, List<HoldemPub>> listAPI = new AsyncTask<Void, Void, List<HoldemPub>>() {
             @Override
@@ -113,11 +124,19 @@ public class PubFragment extends Fragment {
         if (result != null) {
             result.forEach(c -> {
 
-
-                Pub pub = new Pub(c.getPub_name(), c.getPub_place(), c.getGame().games(), c.getPub_open(), c.getPub_info(),c.getPub_img());
-                adapter.addItem(pub);
+                if(filteredKey.equals("전국")){
+                    Pub pub = new Pub(c.getPub_name(), c.getPub_place(), c.getGame().games(), c.getPub_open(), c.getPub_info(), c.getPub_img());
+                    adapter.addItem(pub);
+                }
+                else if(c.getPub_place().contains(filteredKey)) {
+                    Pub pub = new Pub(c.getPub_name(), c.getPub_place(), c.getGame().games(), c.getPub_open(), c.getPub_info(), c.getPub_img());
+                    adapter.addItem(pub);
+                }
 
             });
         }
+
+
+
     }
 }

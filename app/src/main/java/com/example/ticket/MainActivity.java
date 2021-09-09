@@ -1,13 +1,13 @@
 package com.example.ticket;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ticket.ui.home.HomeFragment;
 import com.example.ticket.ui.mypage.MypageFragment;
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     Fragment pubFragment;
     Fragment ticketFragment;
     Fragment mypageFragment;
-
+    BottomNavigationView bottomNavigationView;
 
 
     @Override
@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
         //최화면 설정
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, homeFragment).commit();
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+         bottomNavigationView = findViewById(R.id.bottom_navigation);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.navigation_mypage:
                                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,mypageFragment).commit();
                                 return true;
+
                         }
                         return false;
                     }
@@ -69,10 +71,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_container, fragment).commit();      // Fragment로 사용할 MainActivity내의 layout공간을 선택합니다.
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void replace(Fragment fragment, int menuItem) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,fragment).commit();
+        MenuItem selectedItem = bottomNavigationView.getMenu().findItem(menuItem);
+        selectedItem.setChecked(true);
+
+
     }
 
 

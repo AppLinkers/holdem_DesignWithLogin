@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.ticket.ChatActivity;
 import com.example.ticket.R;
 import com.example.ticket.ui.pub.Pub;
 import com.example.ticket.ui.pub.PubDetailActivity;
@@ -33,13 +34,13 @@ public class TRecycleHolder extends RecyclerView.ViewHolder{
         poster = (ImageView) itemView.findViewById(R.id.ticket_poster);
 
 
-//        itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(v.getContext(), PubDetailActivity.class);
-//                v.getContext().startActivity(intent);
-//            }
-//        });
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(v.getContext(), ChatActivity.class);
+               v.getContext().startActivity(intent);
+            }
+        });
     }
 
     public void onBind(Ticket data){
