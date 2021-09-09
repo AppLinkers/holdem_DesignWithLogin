@@ -45,12 +45,10 @@ public class ChatActivity extends AppCompatActivity {
 
 
     public void send(View view) {
-        Chat newchat = new Chat("jung: ", mycontext.getText()+"");
-        if(newchat.chatID.equals("jung: ")){
-            adapter.meSend();
+        Chat newchat = new Chat("jung", mycontext.getText()+"");
+
             adapter.addItem(newchat);
             recyclerView.setAdapter(adapter);
-        }
-
+            mycontext.setText(null);
     }
 }
