@@ -5,15 +5,18 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -21,9 +24,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.ticket.MainActivity;
 import com.example.ticket.R;
 import com.example.ticket.ui.pub.PubFragment;
-import com.example.ticket.ui.schedule.SRecycleAdapter;
 import com.example.ticket.ui.schedule.ScheduleFragment;
 import com.example.ticket.ui.ticket.TicketFragment;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -43,7 +47,14 @@ public class HomeFragment extends Fragment {
     private HSRecycleAdapter HSadapter;
     private HPRecycleAdapter HPadapter;
 
-    private CardView bpp;
+    BottomNavigationView bottomNavigationView;
+
+    
+    LinearLayout ksop;
+    LinearLayout bpp;
+    LinearLayout apl;
+    LinearLayout hpl;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -60,6 +71,8 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView2.setLayoutManager(linearLayoutManager2);
+
+        bottomNavigationView = root.findViewById(R.id.bottom_navigation);
 
         HSadapter = new HSRecycleAdapter();
         HPadapter = new HPRecycleAdapter();
@@ -110,13 +123,52 @@ public class HomeFragment extends Fragment {
                 ((MainActivity)getActivity()).replace(ScheduleFragment.newInstance(),R.id.navigation_schedule);
             }
         });
+        
+        
+        
+        ksop = root.findViewById(R.id.ksop);
+        apl = root.findViewById(R.id.apl);
+        hpl = root.findViewById(R.id.hpl);
+        bpp = root.findViewById(R.id.bpp);
 
-        bpp =root.findViewById(R.id.bpp);
+
+        ksop.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View view) {
+                click("ksop");
+            }
+        });
+
+        apl.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View view) {
+                click("asl");
+            }
+        });
+
+        bpp.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View view) {
+                click("bpp");
+            }
+        });
+
+        hpl.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View view) {
+                click("hpl");
+            }
+        });
+
         bpp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).replace(TicketFragment.newInstance(),R.id.navigation_ticket);
+                click("bpp");
             }
 
         });
@@ -124,6 +176,23 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void click(String ticket){
+        Bundle bundle = new Bundle();
+        bundle.putString("key", ticket);
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        TicketFragment ticketFragment = new TicketFragment();//프래그먼트2 선언
+        ticketFragment.setArguments(bundle);//번들을 프래그먼트2로 보낼 준비
+        transaction.replace(R.id.frame_container, ticketFragment);
+        transaction.commit();
+        ((MainActivity)getActivity()).navigationBlink(R.id.navigation_ticket);
+
+    }
+
 
     //RecyclerView data2
     private void getData2() {
