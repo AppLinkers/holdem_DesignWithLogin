@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.jetbrains.annotations.NotNull;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -24,10 +27,9 @@ public class ChatActivity extends AppCompatActivity {
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new ChatAdapter();
-        scrollToBottom();
+//        scrollToBottom();
         getData();
         recyclerView.setAdapter(adapter);
     }
@@ -55,6 +57,6 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     public void scrollToBottom(){
-        recyclerView.canScrollVertically(0);
+        recyclerView.canScrollVertically(-1);
     }
 }

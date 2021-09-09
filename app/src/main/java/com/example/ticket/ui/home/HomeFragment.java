@@ -1,5 +1,6 @@
 package com.example.ticket.ui.home;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,7 @@ import com.example.ticket.R;
 import com.example.ticket.ui.pub.PubFragment;
 import com.example.ticket.ui.schedule.SRecycleAdapter;
 import com.example.ticket.ui.schedule.ScheduleFragment;
+import com.example.ticket.ui.ticket.TicketFragment;
 
 import java.util.ArrayList;
 
@@ -39,6 +42,8 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView2;
     private HSRecycleAdapter HSadapter;
     private HPRecycleAdapter HPadapter;
+
+    private CardView bpp;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -105,6 +110,17 @@ public class HomeFragment extends Fragment {
                 ((MainActivity)getActivity()).replace(ScheduleFragment.newInstance(),R.id.navigation_schedule);
             }
         });
+
+        bpp =root.findViewById(R.id.bpp);
+        bpp.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).replace(TicketFragment.newInstance(),R.id.navigation_ticket);
+            }
+
+        });
+
 
         return root;
     }

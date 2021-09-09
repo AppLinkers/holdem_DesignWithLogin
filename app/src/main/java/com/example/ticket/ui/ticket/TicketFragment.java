@@ -43,6 +43,10 @@ public class TicketFragment extends Fragment{
     DecimalFormat decimalFormat = new DecimalFormat("###,###");
     DataService dataService = new DataService();
 
+    public static Fragment newInstance() {
+        return new TicketFragment();
+    }
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

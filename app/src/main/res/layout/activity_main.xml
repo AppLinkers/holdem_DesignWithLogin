@@ -8,20 +8,6 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Holdem U"
-            android:gravity="center"
-            android:textStyle="italic|bold"
-            android:background="#c9daf8"
-            android:textSize="25dp"/>
-
-    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/frame_container"
