@@ -12,11 +12,14 @@ import android.widget.ViewFlipper;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.ticket.MainActivity;
 import com.example.ticket.R;
 import com.example.ticket.ui.pub.PubFragment;
+import com.example.ticket.ui.schedule.SRecycleAdapter;
 import com.example.ticket.ui.schedule.ScheduleFragment;
 
 import java.util.ArrayList;
@@ -32,12 +35,33 @@ public class HomeFragment extends Fragment {
     private ImageView goToPub;
     private ImageView gotToSchedule;
 
+    private RecyclerView recyclerView;
+    private RecyclerView recyclerView2;
+    private HSRecycleAdapter HSadapter;
+    private HPRecycleAdapter HPadapter;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
 
         View root = inflater.inflate(R.layout.fragment_home,container,false);
+
+        //RecyclerView1
+        recyclerView = root.findViewById(R.id.rc_home_schedule);
+        recyclerView2 = root.findViewById(R.id.rc_home_pub);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView2.setLayoutManager(linearLayoutManager2);
+
+        HSadapter = new HSRecycleAdapter();
+        HPadapter = new HPRecycleAdapter();
+        getData();
+        getData2();
+        recyclerView.setAdapter(HSadapter);
+        recyclerView2.setAdapter(HPadapter);
 
         //ImageFlipper
         image = new ArrayList<>();
@@ -85,7 +109,34 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    //RecyclerView data2
+    private void getData2() {
 
+        HomePub h1 = new HomePub("Final Nine","강남", "4.5/5", "15,000");
+        HomePub h2 = new HomePub("Battle PlayPub","홍대", "4.0/5", "10,000");
+        HomePub h3 = new HomePub("레인보우","강남", "1.5/5", "15,000");
+        HomePub h4 = new HomePub("Final Nine","강남", "4.5/5", "15,000");
+
+
+        HPadapter.addItem(h1);
+        HPadapter.addItem(h2);
+        HPadapter.addItem(h3);
+        HPadapter.addItem(h4);
+    }
+
+    //RecyclerView data
+    private void getData() {
+
+        HomeSchdeule l1 = new HomeSchdeule("APL","서울","7/31");
+        HomeSchdeule l2 = new HomeSchdeule("JLP","부산","8/31");
+        HomeSchdeule l3 = new HomeSchdeule("ROKA","수원","9/31");
+        HomeSchdeule l4 = new HomeSchdeule("SSH","서울","10/31");
+
+        HSadapter.addItem(l1);
+        HSadapter.addItem(l2);
+        HSadapter.addItem(l3);
+        HSadapter.addItem(l4);
+    }
 
 
     public void imgData(){
