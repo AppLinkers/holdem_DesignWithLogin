@@ -12,7 +12,7 @@ public class DataService {
 
     Retrofit retrofitClient =
             new Retrofit.Builder()
-                    .baseUrl(Local_URL)
+                    .baseUrl(AWS_URL)
                     .client(new OkHttpClient.Builder().build())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
