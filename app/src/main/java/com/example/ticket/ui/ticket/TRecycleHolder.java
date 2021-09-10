@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.ticket.ChatActivity;
 import com.example.ticket.R;
-import com.example.ticket.ui.pub.Pub;
-import com.example.ticket.ui.pub.PubDetailActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -47,8 +45,10 @@ public class TRecycleHolder extends RecyclerView.ViewHolder{
         price.setText(data.getPrice());
         place.setText(data.getPlace());
         name.setText(data.getName());
-
         Glide.with(itemView).load(data.getPoster()).into(poster);
+
+
+
 
     }
 

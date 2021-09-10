@@ -6,32 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.ticket.TicketFragment"
     android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/slider_round"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_baseline_search_24"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="8dp"/>
-        <EditText
-            android:id="@+id/ticket_search"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
-            android:hint="찾는 상품을 검색해 보세요"
-            android:textSize="15sp"
-            android:inputType="text"
-            android:background="@null"/>
 
-    </LinearLayout>
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
@@ -43,15 +18,17 @@
         android:paddingRight="10dp"
         app:queryHint="찾는 상품을 검색해 보세요"
         android:background="@drawable/slider_round"/>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:orientation="vertical"
             android:paddingRight="10dp"
             android:paddingLeft="10dp">
@@ -59,30 +36,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:text="티켓 구매"
-                android:gravity="center"
-                android:textColor="@color/black"/>
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:gravity="bottom"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="#800000"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="거래 목록"
-                android:gravity="center"
-                android:textColor="@color/black"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#E2E2E2"/>
         </LinearLayout>
 
     </LinearLayout>

@@ -7,11 +7,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.ticket.ui.dataService.DataService;
 import com.example.ticket.ui.entity.Message;
 import com.example.ticket.ui.entity.Room;
@@ -68,6 +66,7 @@ public class ChatActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new ChatAdapter();
+//        scrollToBottom();
         getData();
         recyclerView.setAdapter(adapter);
 
@@ -128,7 +127,6 @@ public class ChatActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     public void send(View view) {
-
         Message message = new Message("TALK",room,user_id, mycontext.getText()+"");
 
         AsyncTask<Void, Void, Message> listAPI = new AsyncTask<Void, Void, Message>() {
