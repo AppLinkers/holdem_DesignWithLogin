@@ -12,7 +12,7 @@ public class DataService {
 
     Retrofit retrofitClient =
             new Retrofit.Builder()
-                    .baseUrl(AWS_URL)
+                    .baseUrl(Local_URL)
                     .client(new OkHttpClient.Builder().build())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
@@ -22,5 +22,6 @@ public class DataService {
     public Schedules schedules = retrofitClient.create(Schedules.class);
     public HoldemPubs holdemPubs = retrofitClient.create(HoldemPubs.class);
     public Tickets tickets = retrofitClient.create(Tickets.class);
+    public Chat chat = retrofitClient.create(Chat.class);
 }
 

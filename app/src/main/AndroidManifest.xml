@@ -28,7 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.start.SignInPage" />
         <activity android:name=".ui.start.SignUpPage" />
         <activity android:name=".ui.start.StartActivity" />
         <activity android:name=".ui.pub.PubDetailActivity" />
