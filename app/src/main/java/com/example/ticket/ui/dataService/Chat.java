@@ -12,8 +12,8 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface Chat {
-    @GET("/message/{ticket_id}")
-    Call<List<Message>> messageList(@Path("ticket_id") Long ticket_id);
+    @GET("/message/{room_id}")
+    Call<List<Message>> messageList(@Path("room_id") Long room_id);
 
     @POST("/message")
     Call<Message> message(@Body Message message);

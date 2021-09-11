@@ -16,12 +16,14 @@ public class Message {
     private String messageType;
     private Room room;
     private Long senderId;
+    private String senderName;
     private String message;
 
-    public Message(String messageType, Room room, Long senderId, String message) {
+    public Message(String messageType, Room room, Long senderId, String senderName, String message) {
         this.messageType = messageType;
         this.room = room;
         this.senderId = senderId;
+        this.senderName = senderName;
         this.message = message;
     }
 }

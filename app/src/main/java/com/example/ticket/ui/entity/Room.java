@@ -16,6 +16,4 @@ public class Room {
 
     private Long id;
     private Long ticketId;
-    private Long buyerId;
-    private String buyerLoginId;
 }

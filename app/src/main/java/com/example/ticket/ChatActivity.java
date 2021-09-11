@@ -2,22 +2,31 @@ package com.example.ticket;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.ticket.ui.dataService.DataService;
 import com.example.ticket.ui.entity.Message;
 import com.example.ticket.ui.entity.Room;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
+import ua.naiksoftware.stomp.Stomp;
+import ua.naiksoftware.stomp.StompClient;
+import ua.naiksoftware.stomp.dto.StompHeader;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -38,10 +47,16 @@ public class ChatActivity extends AppCompatActivity {
     String user_login_id;
 
     Room room;
+    Long ticketId;
 
     private static final String TAG = "Chat";
 
     DataService dataService = new DataService();
+    private StompClient stompClient;
+    private List<StompHeader> headerList;
+
+    Gson gson = new Gson();
+    int chk = 0;
 
 
 
@@ -50,6 +65,8 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        Intent intent = getIntent();
+        ticketId = intent.getLongExtra("ticketId",1l);
 
         // initializing our shared preferences.
         sharedPreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
@@ -68,8 +85,57 @@ public class ChatActivity extends AppCompatActivity {
         adapter = new ChatAdapter();
 //        scrollToBottom();
         getData();
-        recyclerView.setAdapter(adapter);
+        // chat 방 입장 처리
+        /**
+         * 둘다 ticket id 로 처리
+         */
+        this.room = new Room(ticketId,ticketId);
+        initStomp();
 
+
+    }
+
+    @SuppressLint("CheckResult")
+    private void initStomp() {
+        stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://3.21.178.170/ws-stomp/websocket");
+        stompClient.lifecycle().subscribe(lifecycleEvent -> {
+            switch (lifecycleEvent.getType()) {
+                case OPENED:
+                    Log.d(TAG, "Stomp connection opened");
+                    break;
+                case ERROR:
+                    Log.e(TAG, "Error", lifecycleEvent.getException());
+                    if(lifecycleEvent.getException().getMessage().contains("EOF")){
+                    }
+                    break;
+                case CLOSED:
+                    Log.d(TAG, "Stomp connection closed");
+                    break;
+            }
+        });
+        stompClient.connect();
+
+        /**
+         * test -> ticket id 로 변경
+         */
+        stompClient.topic("/sub/chat/room/"+ticketId.toString()).subscribe(topicMessage -> {
+            Log.d(TAG, topicMessage.getPayload());
+            Message message = gson.fromJson(topicMessage.getPayload(), Message.class);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Chat chat = new Chat(message.getSenderName(), message.getMessage());
+                    adapter.addItem(chat);
+                    recyclerView.setAdapter(adapter);
+                }
+            });
+        });
+
+        if (chk == 0) {
+            Message message = new Message("ENTER", room, user_id, user_login_id, "ENTER");
+            String enter = gson.toJson(message);
+            stompClient.send("/pub/chat/message", enter).subscribe();
+        }
     }
 
 
@@ -80,7 +146,7 @@ public class ChatActivity extends AppCompatActivity {
         AsyncTask<Void, Void, List<Message>> listAPI = new AsyncTask<Void, Void, List<Message>>() {
             @Override
             protected List<Message> doInBackground(Void... params) {
-                Call<List<Message>> call = dataService.chat.messageList(2l);
+                Call<List<Message>> call = dataService.chat.messageList(ticketId);
                 try {
                     return call.execute().body();
                 } catch (IOException e) {
@@ -95,7 +161,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         }.execute();
 
-
         List<Message> result = null;
 
         try {
@@ -103,23 +168,19 @@ public class ChatActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Log.d(TAG, String.valueOf(result));
 
-        if (result != null) {
+        if (result.size() > 0) {
             room = result.get(0).getRoom();
             result.forEach(c -> {
-                String sender;
                 if (c.getSenderId().equals(user_id)) {
-                    sender = user_login_id;
-                } else {
-                    sender = c.getRoom().getBuyerLoginId();
+                    chk++;
                 }
-                Chat chat = new Chat(sender, c.getMessage());
-
+                Chat chat = new Chat(c.getSenderName(), c.getMessage());
                 adapter.addItem(chat);
 
             });
-
-
+            recyclerView.setAdapter(adapter);
         }
 
 
@@ -127,43 +188,9 @@ public class ChatActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     public void send(View view) {
-        Message message = new Message("TALK",room,user_id, mycontext.getText()+"");
-
-        AsyncTask<Void, Void, Message> listAPI = new AsyncTask<Void, Void, Message>() {
-            @Override
-            protected Message doInBackground(Void... params) {
-                Call<Message> call = dataService.chat.message(message);
-                try {
-                    return call.execute().body();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Message s) {
-                super.onPostExecute(s);
-            }
-        }.execute();
-
-
-        Message result = null;
-
-        try {
-            result = listAPI.get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (result != null) {
-
-        Chat newchat = new Chat(user_login_id, mycontext.getText()+"");
-        adapter.addItem(newchat);
-        recyclerView.setAdapter(adapter);
-
-        }
+        Message message = new Message("TALK", room, user_id, user_login_id, mycontext.getText() + "");
+        String sendMessage = gson.toJson(message);
+        Log.d("send", sendMessage);
+        stompClient.send("/pub/chat/message", sendMessage).subscribe();
     }
-
-
 }

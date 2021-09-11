@@ -1,7 +1,5 @@
 package com.example.ticket.ui.start;
 
-import static java.util.concurrent.TimeUnit.*;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,8 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkRequest;
 
 import com.example.ticket.MainActivity;
 import com.example.ticket.R;
