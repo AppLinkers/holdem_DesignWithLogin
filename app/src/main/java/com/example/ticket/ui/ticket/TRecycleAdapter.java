@@ -49,6 +49,12 @@ public class TRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         listData.add(data);
     }
 
+    public void clear() {
+        int size = listData.size();
+        listData.clear();
+        notifyItemRangeRemoved(0, size);
+    }
+
     @Override
     public Filter getFilter() {
         Filter filter = new Filter() {

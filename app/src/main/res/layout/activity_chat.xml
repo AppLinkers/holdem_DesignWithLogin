@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="706dp"
         android:paddingTop="15dp"
-        android:layout_above="@+id/chat"/>
+        android:layout_above="@+id/chat"
+        app:stackFromEnd="true"/>
 
     <RelativeLayout
         android:id="@+id/chat"

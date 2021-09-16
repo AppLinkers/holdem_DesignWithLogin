@@ -3,13 +3,10 @@ package com.example.ticket.ui.ticket;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -20,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ticket.R;
 import com.example.ticket.ui.dataService.DataService;
-import com.example.ticket.ui.dataService.Tickets;
 import com.example.ticket.ui.entity.TicketDto;
 
 import java.io.IOException;
@@ -39,15 +35,26 @@ public class TicketFragment extends Fragment{
     private SearchView searchView;
     ArrayList<Ticket> arrayList;
 
+    private String key;
 
     DecimalFormat decimalFormat = new DecimalFormat("###,###");
     DataService dataService = new DataService();
+
+    public static Fragment newInstance() {
+        return new TicketFragment();
+    }
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_ticket, container, false);
+
+        if (getArguments() != null)
+        {
+            key = getArguments().getString("key");
+        }
 
         recyclerView = (RecyclerView) root.findViewById(R.id.rc_ticket);
         searchView = (androidx.appcompat.widget.SearchView) root.findViewById(R.id.searchView);
@@ -59,6 +66,7 @@ public class TicketFragment extends Fragment{
 
         adapter = new TRecycleAdapter();
         getData();
+        adapter.getFilter().filter(key);
         recyclerView.setAdapter(adapter);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -68,9 +76,9 @@ public class TicketFragment extends Fragment{
             }
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
+                adapter.clear();
                 getData();
-                recyclerView.setAdapter(adapter);
+                adapter.getFilter().filter(newText);
                 return false;
             }
         });
@@ -114,8 +122,7 @@ public class TicketFragment extends Fragment{
             result.forEach(c -> {
 
                 String price = decimalFormat.format(c.getTicket_price());
-
-                Ticket ticket = new Ticket(c.getTicket_name(), c.getTicket_place(),price,c.getTicket_poster());
+                Ticket ticket = new Ticket(c.getId(),c.getTicket_name(), c.getTicket_place(),price,c.getTicket_poster());
                 adapter.addItem(ticket);
 
             });

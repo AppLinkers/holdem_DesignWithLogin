@@ -48,7 +48,7 @@
                         android:textSize="18sp"
                         android:textColor="@color/black"/>
                     <TextView
-                        android:id="@+id/profileEmail"
+                        android:id="@+id/profileID"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="이메일"
@@ -88,13 +88,14 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:text="관심 대회"
+                                android:text="지역"
                                 android:textColor="#800000"
                                 android:textSize="13sp"
                                 android:gravity="center_vertical"
                                 android:layout_weight="1"
                                 android:paddingLeft="15dp"/>
                             <TextView
+                                android:id="@+id/profileLoc"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
@@ -131,7 +132,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:paddingBottom="5dp"
-                                android:text="구매 내역"
+                                android:text="Not Supported"
                                 android:textColor="@color/black"
                                 android:textSize="18sp"/>
 
