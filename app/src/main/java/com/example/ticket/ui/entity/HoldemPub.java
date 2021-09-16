@@ -20,4 +20,6 @@ public class HoldemPub {
     private String pub_img;
     private Game game;
 
+//    private boolean pub_clicked;
+
 }

@@ -14,4 +14,6 @@ public class Pub {
     String time;
     String intro;
     String poster;
+
+//    boolean clicked;
 }
