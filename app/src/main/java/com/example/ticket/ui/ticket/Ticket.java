@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter @Setter
 public class Ticket {
 
-
+    Long id;
     String name;
     String place;
     String price;

@@ -22,5 +22,6 @@ public class DataService {
     public Schedules schedules = retrofitClient.create(Schedules.class);
     public HoldemPubs holdemPubs = retrofitClient.create(HoldemPubs.class);
     public Tickets tickets = retrofitClient.create(Tickets.class);
+    public Chat chat = retrofitClient.create(Chat.class);
 }
 

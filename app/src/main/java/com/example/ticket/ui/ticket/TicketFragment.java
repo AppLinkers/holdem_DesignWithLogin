@@ -45,6 +45,8 @@ public class TicketFragment extends Fragment{
     }
 
 
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -121,7 +123,7 @@ public class TicketFragment extends Fragment{
             result.forEach(c -> {
 
                 String price = decimalFormat.format(c.getTicket_price());
-                Ticket ticket = new Ticket(c.getTicket_name(), c.getTicket_place(),price,c.getTicket_poster());
+                Ticket ticket = new Ticket(c.getId(),c.getTicket_name(), c.getTicket_place(),price,c.getTicket_poster());
                 adapter.addItem(ticket);
 
             });

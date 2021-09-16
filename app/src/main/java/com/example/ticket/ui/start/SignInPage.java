@@ -16,7 +16,6 @@ import com.example.ticket.MainActivity;
 import com.example.ticket.R;
 import com.example.ticket.ui.dataService.DataService;
 import com.example.ticket.ui.entity.Member;
-import com.example.ticket.ui.home.HomeFragment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,10 +35,14 @@ public class SignInPage extends AppCompatActivity {
 
     // key for storing Member
     public static final String USER_ID_KEY = "user_id_key";
+    public static final String USER_NAME = "user_name_key";
+    public static final String USER_LOGIN_ID_KEY = "user_login_id_key";
+    public static final String USER_LOC = "user_loc_key";
 
     // variable for shared preferences.
     SharedPreferences sharedPreferences;
-    String user_id;
+    Long user_id;
+    String user_login_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,8 @@ public class SignInPage extends AppCompatActivity {
 
         // getting data from shared prefs and
         // storing it in our string variable.
-        user_id = sharedPreferences.getString(USER_ID_KEY, null);
+        user_login_id = sharedPreferences.getString(USER_LOGIN_ID_KEY, null);
+        user_id = sharedPreferences.getLong(USER_ID_KEY, 0l);
 
         final EditText login_user_id = findViewById(R.id.login_user_id);
         final EditText login_user_pass = findViewById(R.id.login_user_pass);
@@ -81,7 +85,10 @@ public class SignInPage extends AppCompatActivity {
                         } else{
                             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                            editor.putString(USER_ID_KEY, result.getUser_id());
+                            editor.putString(USER_LOGIN_ID_KEY, result.getUser_id());
+                            editor.putString(USER_NAME, result.getUser_name());
+                            editor.putString(USER_LOC, result.getUser_loc());
+                            editor.putLong(USER_ID_KEY, result.getId());
 
                             editor.apply();
 

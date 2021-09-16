@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="card_red">#800000</color>
     <color name="card_red_2">#B0CF0000</color>
+    <color name="header_color">#2196F3</color>
 </resources>

@@ -16,6 +16,8 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<Chat> listData = new ArrayList<>();
     LinearLayout chatItem;
 
+    String user_login_id;
+
     View view;
 
     @NonNull
@@ -23,13 +25,15 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_item, parent, false);
         chatItem = view.findViewById(R.id.chatItem);
+
+
         return new ChatRecycleHolder(view);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((ChatRecycleHolder)holder).onBind(listData.get(position));
+        ((ChatRecycleHolder)holder).onBind(listData.get(position),user_login_id);
     }
 
     @Override
@@ -39,6 +43,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public void addItem(Chat data){
         listData.add(data);
+    }
+
+    public void setID(String user){
+        user_login_id = user;
     }
 
 }

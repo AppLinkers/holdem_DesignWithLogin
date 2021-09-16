@@ -15,6 +15,12 @@ public class ChatRecycleHolder extends RecyclerView.ViewHolder {
     public TextView chatIDTv;
     public TextView chatTv;
     public LinearLayout chatItem;
+
+
+
+
+
+
     public ChatRecycleHolder(View view) {
         super(view);
 
@@ -28,15 +34,17 @@ public class ChatRecycleHolder extends RecyclerView.ViewHolder {
 
     @SuppressLint("WrongConstant")
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public void onBind(Chat chat){
+    public void onBind(Chat chat,String user){
         String chatID = chatIDTv.getText()+"";
 
         chatIDTv.setText(chat.getChatID());
         chatTv.setText(chat.getChat());
 
-        if(chat.getChatID().contains("jung")) {
+        if(chat.getChatID().equals(user)) {
             chatItem.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
+        }else{
+            chatItem.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
         }
 
     }

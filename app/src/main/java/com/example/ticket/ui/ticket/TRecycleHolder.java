@@ -20,6 +20,7 @@ public class TRecycleHolder extends RecyclerView.ViewHolder{
     public TextView place;
     public TextView price;
     public ImageView poster;
+    Long ticketId;
 
 
 
@@ -36,6 +37,7 @@ public class TRecycleHolder extends RecyclerView.ViewHolder{
             @Override
            public void onClick(View v) {
                Intent intent = new Intent(v.getContext(), ChatActivity.class);
+                intent.putExtra("ticketId", ticketId);
                v.getContext().startActivity(intent);
             }
         });
@@ -46,10 +48,7 @@ public class TRecycleHolder extends RecyclerView.ViewHolder{
         place.setText(data.getPlace());
         name.setText(data.getName());
         Glide.with(itemView).load(data.getPoster()).into(poster);
-
-
-
-
+        ticketId = data.getId();
     }
 
 
