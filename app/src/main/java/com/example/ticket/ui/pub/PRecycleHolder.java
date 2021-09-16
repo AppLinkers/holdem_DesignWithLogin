@@ -24,6 +24,9 @@ public class PRecycleHolder extends RecyclerView.ViewHolder{
     public ImageView poster;
     public String posterSrc;
 
+    public ImageView pub_heart;
+    private boolean clicked =true;
+
 
     public PRecycleHolder(@NonNull @NotNull View itemView) {
         super(itemView);
@@ -35,6 +38,23 @@ public class PRecycleHolder extends RecyclerView.ViewHolder{
         intro = (TextView) itemView.findViewById(R.id.pub_intro);
         poster = (ImageView) itemView.findViewById(R.id.pub_poster);
 
+        pub_heart = (ImageView) itemView.findViewById(R.id.pub_heart);
+
+
+        pub_heart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (clicked){
+                    pub_heart.setImageResource(R.drawable.ic_heart_black);
+                    clicked = false;
+                }
+                else {
+                    clicked=true;
+                    pub_heart.setImageResource(R.drawable.ic_heart_red);
+                }
+            }
+        });
+
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +65,7 @@ public class PRecycleHolder extends RecyclerView.ViewHolder{
                 String passTime = time.getText()+"";
                 String passGame = game.getText()+"";
                 String passIntro = intro.getText()+"";
+//                boolean passClick = clicked;
 
                 intent.putExtra("name", passName);
                 intent.putExtra("locate", passLocate);
@@ -52,9 +73,12 @@ public class PRecycleHolder extends RecyclerView.ViewHolder{
                 intent.putExtra("game", passGame);
                 intent.putExtra("intro",passIntro);
                 intent.putExtra("poster", posterSrc);
+//                intent.putExtra("like",passClick);
                 v.getContext().startActivity(intent);
             }
         });
+
+
 
     }
 
@@ -66,6 +90,7 @@ public class PRecycleHolder extends RecyclerView.ViewHolder{
         game.setText(data.getGame());
         intro.setText(data.getIntro());
         posterSrc = data.getPoster();
+
     }
 
 

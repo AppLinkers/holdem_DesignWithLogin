@@ -72,9 +72,10 @@
                     android:layout_weight="0.3"
                     android:gravity="center">
                     <ImageView
+                        android:id="@+id/detail_heart"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/heart_black"/>
+                        android:src="@drawable/ic_heart_black"/>
 
                 </LinearLayout>
                 <LinearLayout
