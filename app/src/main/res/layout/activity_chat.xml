@@ -13,9 +13,11 @@
         android:id="@+id/rc_chat"
         android:layout_width="match_parent"
         android:layout_height="706dp"
-        android:paddingTop="15dp" />
+        android:paddingTop="15dp"
+        android:layout_above="@+id/chat"/>
 
     <RelativeLayout
+        android:id="@+id/chat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
