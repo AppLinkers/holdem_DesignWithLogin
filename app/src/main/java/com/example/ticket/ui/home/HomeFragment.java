@@ -1,11 +1,9 @@
 package com.example.ticket.ui.home;
 
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,7 +12,6 @@ import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,7 +23,6 @@ import com.example.ticket.R;
 import com.example.ticket.ui.pub.PubFragment;
 import com.example.ticket.ui.schedule.ScheduleFragment;
 import com.example.ticket.ui.ticket.TicketFragment;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;

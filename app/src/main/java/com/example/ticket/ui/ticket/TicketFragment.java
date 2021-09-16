@@ -40,11 +40,6 @@ public class TicketFragment extends Fragment{
     DecimalFormat decimalFormat = new DecimalFormat("###,###");
     DataService dataService = new DataService();
 
-    public static Fragment newInstance() {
-        return new TicketFragment();
-    }
-
-
     public static TicketFragment newInstance() {
         return new TicketFragment();
     }
