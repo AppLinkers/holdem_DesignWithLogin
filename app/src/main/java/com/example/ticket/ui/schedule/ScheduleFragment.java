@@ -4,17 +4,22 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.AsyncTask;
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,7 +47,8 @@ public class ScheduleFragment extends Fragment {
     DataService dataService = new DataService();
 
     TextView tv_year_month_picker;
-    RelativeLayout select_date;
+    LinearLayout select_date;
+
 
 
     public static ScheduleFragment newInstance() {
@@ -50,10 +56,28 @@ public class ScheduleFragment extends Fragment {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_schedule, container, false);
+
+
+
+        //datePicker
+
+        tv_year_month_picker = root.findViewById(R.id.tv_year_month_picker);
+        select_date = root.findViewById(R.id.select_date);
+
+        select_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                YearMonthPickerDialog pd = new YearMonthPickerDialog();
+                pd.setListener(d);
+                pd.show(getChildFragmentManager(),"YearMonthPicker");
+            }
+        });
+
         //recyclerView
         recyclerView = root.findViewById(R.id.rcView);
 
@@ -65,20 +89,7 @@ public class ScheduleFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         count = root.findViewById(R.id.count);
-        count.setText("총 "+adapter.getItemCount()+" 개 일정");
-
-        //datePicker
-        select_date = root.findViewById(R.id.select_date);
-        tv_year_month_picker = root.findViewById(R.id.tv_year_month_picker);
-
-        select_date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                YearMonthPickerDialog pd = new YearMonthPickerDialog();
-                pd.setListener(d);
-                pd.show(getChildFragmentManager(),"YearMonthPicker");
-            }
-        });
+        count.setText("("+adapter.getItemCount()+")");
 
 
         return root;
@@ -144,14 +155,14 @@ public class ScheduleFragment extends Fragment {
             Log.d("YearMonthPicker", "year = " + year + ", month = " + month + ", day = " + dayOfMonth);
             if(month < 10){
                 dateFil= year+".0"+month;
-                tv_year_month_picker.setText(year + ".0" + month);
+                tv_year_month_picker.setText(month + "월의 대회");
                 adapter = new SRecycleAdapter();
                 getData(dateFil);
                 recyclerView.setAdapter(adapter);
                 Toast.makeText(getContext(),dateFil,Toast.LENGTH_SHORT).show();
             } else {
                 dateFil= year+"."+month;
-                tv_year_month_picker.setText(year + "." + month);
+                tv_year_month_picker.setText(month + "월의 대회");
                 adapter = new SRecycleAdapter();
                 getData(dateFil);
                 recyclerView.setAdapter(adapter);

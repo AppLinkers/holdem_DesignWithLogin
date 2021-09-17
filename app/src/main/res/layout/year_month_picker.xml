@@ -4,10 +4,39 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#2196F3"
+        android:gravity="bottom"
+        android:paddingBottom="15dp"
+        android:paddingLeft="20dp">
+        <TextView
+            android:id="@+id/picker_header_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2021년"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_marginRight="8dp"
+            android:clickable="true"/>
+        <TextView
+            android:id="@+id/picker_header_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9월"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:clickable="true"/>
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp">
 
         <NumberPicker
             android:id="@+id/picker_year"
@@ -28,32 +57,33 @@
     </LinearLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_height="45dp"
         >
-
-        <Button
+        <TextView
             android:id="@+id/btn_cancel"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="cancel"
-            android:layout_weight="1"
-            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:layout_toLeftOf="@+id/btn_confirm"
+            android:layout_marginRight="25dp"
+            android:padding="5dp"
             />
 
-        <Button
+        <TextView
             android:id="@+id/btn_confirm"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OK"
-            android:textAllCaps="false"
-            />
+            android:text="Ok"
+            android:textSize="16sp"
+            android:textColor="#2196F3"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:padding="5dp"
 
-    </LinearLayout>
+            />
+    </RelativeLayout>
 
 </LinearLayout>
