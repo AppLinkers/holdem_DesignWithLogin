@@ -150,6 +150,7 @@
                 android:layout_height="80dp"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
+                android:id="@+id/gotoSell"
                 android:gravity="center_vertical">
                 <ImageView
                     android:layout_width="16dp"
@@ -158,7 +159,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="공지사항"
+                    android:text="티켓 판매 "
                     android:paddingLeft="10dp"
                     android:textColor="@color/black"/>
             </LinearLayout>

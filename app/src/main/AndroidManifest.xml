@@ -14,6 +14,9 @@
         android:theme="@style/Theme.Ticket"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".TicketUpload"
+            android:exported="true" />
+        <activity
             android:name=".ChatActivity"
             android:exported="true" />
         <activity
@@ -21,13 +24,11 @@
             android:exported="true" />
         <activity
             android:name=".ui.start.StartActivity"
-            android:label="@string/app_name">
-
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity android:name=".ui.start.SignUpPage" />
         <activity android:name=".ui.start.SignInPage" />
         <activity
-            android:name="MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
