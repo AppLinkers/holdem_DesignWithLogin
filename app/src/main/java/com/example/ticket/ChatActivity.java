@@ -177,7 +177,14 @@ public class ChatActivity extends AppCompatActivity {
                     chk++;
                 }
                 Chat chat = new Chat(c.getSenderName(), c.getMessage());
-                adapter.addItem(chat);
+                if(user_login_id.equals("test")){
+                    adapter.addItem(chat);
+                }else{
+                    if((c.getSenderName().equals(user_login_id))||c.getSenderName().equals("test")){
+                        adapter.addItem(chat);
+                    }
+                }
+
 
             });
             recyclerView.setAdapter(adapter);

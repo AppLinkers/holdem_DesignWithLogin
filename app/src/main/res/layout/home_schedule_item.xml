@@ -13,7 +13,7 @@
         <ImageView
             android:layout_width="180dp"
             android:layout_height="240dp"
-            android:src="@drawable/holldom"
+            android:id="@+id/schedulePoster"
             android:scaleType="centerCrop"/>
     </androidx.cardview.widget.CardView>
 
