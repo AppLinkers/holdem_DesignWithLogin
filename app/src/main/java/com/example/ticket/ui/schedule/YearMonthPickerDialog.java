@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
 
@@ -28,8 +29,10 @@ public class YearMonthPickerDialog extends DialogFragment {
         this.listener = listener;
     }
 
-    Button btnConfirm;
-    Button btnCancel;
+    TextView btnConfirm;
+    TextView btnCancel;
+    TextView picker_header_year;
+    TextView picker_header_month;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -40,6 +43,9 @@ public class YearMonthPickerDialog extends DialogFragment {
 
         btnConfirm = dialog.findViewById(R.id.btn_confirm);
         btnCancel = dialog.findViewById(R.id.btn_cancel);
+
+        picker_header_year = dialog.findViewById(R.id.picker_header_year);
+        picker_header_month = dialog.findViewById(R.id.picker_header_month);
 
         final NumberPicker monthPicker = (NumberPicker) dialog.findViewById(R.id.picker_month);
         final NumberPicker yearPicker = (NumberPicker) dialog.findViewById(R.id.picker_year);
@@ -72,6 +78,21 @@ public class YearMonthPickerDialog extends DialogFragment {
 
         yearPicker.setWrapSelectorWheel(false);
         monthPicker.setWrapSelectorWheel(false);
+
+        yearPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                picker_header_year.setText(newVal+"년");
+
+            }
+        });
+
+        monthPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                picker_header_month.setText(newVal+"월");
+            }
+        });
 
         builder.setView(dialog)
         // Add action buttons

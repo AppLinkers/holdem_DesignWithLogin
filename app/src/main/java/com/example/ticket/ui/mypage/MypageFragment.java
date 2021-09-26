@@ -1,28 +1,28 @@
 package com.example.ticket.ui.mypage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ticket.R;
-import com.example.ticket.databinding.FragmentMypageBinding;
-import com.example.ticket.ui.home.HomeFragment;
+import com.example.ticket.TicketUpload;
 
 public class MypageFragment extends Fragment {
 
     private TextView profileName;
     private TextView profileID;
     private TextView profileLoc;
+    private LinearLayout goToSell;
 
     // creating constant keys for shared preferences.
     public static final String SHARED_PREFS = "shared_prefs";
@@ -51,6 +51,17 @@ public class MypageFragment extends Fragment {
         profileName.setText(user_name);
         profileID.setText(user_login_id);
         profileLoc.setText(user_loc);
+
+        goToSell = root.findViewById(R.id.gotoSell);
+
+        goToSell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),"asdf",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), TicketUpload.class);
+                startActivity(intent);
+            }
+        });
 
         return root;
     }
