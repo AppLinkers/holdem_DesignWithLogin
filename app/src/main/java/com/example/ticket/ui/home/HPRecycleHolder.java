@@ -22,14 +22,12 @@ public class HPRecycleHolder extends RecyclerView.ViewHolder {
 
         name = (TextView) itemView.findViewById(R.id.home_pub_name);
         place = (TextView) itemView.findViewById(R.id.home_pub_place);
-        price = (TextView) itemView.findViewById(R.id.home_pub_price);
         poster = itemView.findViewById(R.id.homePubPoster);
     }
 
     public void onBind(@NonNull HomePub data){
 
 //        Glide.with(itemView).load(data.getPoster()).into(poster);
-        price.setText(data.getPrice());
         place.setText(data.getPlace());
         name.setText(data.getName());
         Glide.with(itemView).load(data.getPoster()).into(poster);
