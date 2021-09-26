@@ -4,12 +4,22 @@ public class HomeSchdeule {
     String name;
     String place;
     String date;
+    String cmpPoster;
 
-    public HomeSchdeule(String name, String place, String date){
+    public HomeSchdeule(String name, String place, String date,String cmpPoster){
         this.name = name;
         this.place = place;
         this.date = date;
+        this.cmpPoster = cmpPoster;
 
+    }
+
+    public String getCmpPoster() {
+        return cmpPoster;
+    }
+
+    public void setCmpPoster(String cmpPoster) {
+        this.cmpPoster = cmpPoster;
     }
 
     public String getName() {

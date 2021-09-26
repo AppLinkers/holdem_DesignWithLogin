@@ -1,8 +1,11 @@
 package com.example.ticket.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.res.TypedArray;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +23,23 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.ticket.MainActivity;
 import com.example.ticket.R;
+import com.example.ticket.ui.dataService.DataService;
+import com.example.ticket.ui.entity.Competition;
+import com.example.ticket.ui.entity.HoldemPub;
 import com.example.ticket.ui.pub.PubFragment;
 import com.example.ticket.ui.schedule.ScheduleFragment;
 import com.example.ticket.ui.ticket.TicketFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
 
 public class HomeFragment extends Fragment {
 
+    private String TAG = "Home Fragrment";
     ArrayList<Integer> image;
     private ViewFlipper viewFlipper;
 
@@ -51,7 +62,9 @@ public class HomeFragment extends Fragment {
     LinearLayout apl;
     LinearLayout hpl;
 
-
+    DataService dataService = new DataService();
+    int cnt=0;
+    int cnt2 = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -191,34 +204,98 @@ public class HomeFragment extends Fragment {
 
 
     //RecyclerView data2
+    @SuppressLint({"StaticFieldLeak", "NewApi"})
     private void getData2() {
 
-        HomePub h1 = new HomePub("Final Nine","강남", "4.5/5", "15,000");
-        HomePub h2 = new HomePub("Battle PlayPub","홍대", "4.0/5", "10,000");
-        HomePub h3 = new HomePub("레인보우","강남", "1.5/5", "15,000");
-        HomePub h4 = new HomePub("Final Nine","강남", "4.5/5", "15,000");
+        AsyncTask<Void, Void, List<HoldemPub>> listAPI = new AsyncTask<Void, Void, List<HoldemPub>>() {
+            @Override
+            protected List<HoldemPub> doInBackground(Void... params) {
+                Call<List<HoldemPub>> call = dataService.holdemPubs.holdemPubs();
+                try {
+                    return call.execute().body();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(List<HoldemPub> s) {
+                super.onPostExecute(s);
+            }
+        }.execute();
 
 
-        HPadapter.addItem(h1);
-        HPadapter.addItem(h2);
-        HPadapter.addItem(h3);
-        HPadapter.addItem(h4);
+        List<HoldemPub> result = null;
+
+        try {
+            result = listAPI.get();
+            Log.d(TAG, String.valueOf(result));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (result != null) {
+            result.forEach(c -> {
+                if(cnt2<3) {
+                    HomePub pub = new HomePub(c.getPub_name(), c.getPub_place(), "10,000", c.getPub_img());
+                    HPadapter.addItem(pub);
+                    cnt2+=1;
+                }
+
+
+            });
+        }
     }
+
+
+
+
 
     //RecyclerView data
+    @SuppressLint({"StaticFieldLeak", "NewApi"})
     private void getData() {
+        AsyncTask<Void, Void, List<Competition>> listAPI = new AsyncTask<Void, Void, List<Competition>>() {
+            @Override
+            protected List<Competition> doInBackground(Void... params) {
+                Call<List<Competition>> call = dataService.schedules.schedules();
+                try {
+                    return call.execute().body();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
 
-        HomeSchdeule l1 = new HomeSchdeule("APL","서울","7/31");
-        HomeSchdeule l2 = new HomeSchdeule("JLP","부산","8/31");
-        HomeSchdeule l3 = new HomeSchdeule("ROKA","수원","9/31");
-        HomeSchdeule l4 = new HomeSchdeule("SSH","서울","10/31");
+            @Override
+            protected void onPostExecute(List<Competition> s) {
+                super.onPostExecute(s);
+            }
+        }.execute();
 
-        HSadapter.addItem(l1);
-        HSadapter.addItem(l2);
-        HSadapter.addItem(l3);
-        HSadapter.addItem(l4);
+
+        List<Competition> result = null;
+
+        try {
+            result = listAPI.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (result != null) {
+            result.forEach(c -> {
+
+                if(cnt<4) {
+                    HomeSchdeule schedule = new HomeSchdeule(c.getCmp_name(), c.getCmp_place(), c.getCmp_start(), c.getCmp_img());
+                    HSadapter.addItem(schedule);
+                    cnt+=1;
+                }
+
+
+            });
+
+        }
     }
-
 
     public void imgData(){
         image.add(R.drawable.bar);

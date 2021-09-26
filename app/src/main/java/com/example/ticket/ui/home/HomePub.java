@@ -5,13 +5,22 @@ public class HomePub {
     String place;
     String star;
     String price;
+    String poster;
 
-    public HomePub(String name, String place, String star, String price){
+    public HomePub(String name, String place, String price,String poster){
         this.name = name;
         this.place = place;
-        this.star = star;
+        this.poster = poster;
         this.price = price;
 
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 
     public String getName() { return name; }
