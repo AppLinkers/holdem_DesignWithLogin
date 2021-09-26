@@ -243,8 +243,8 @@ public class HomeFragment extends Fragment {
                     cnt2+=1;
                 }
 
-
             });
+            cnt2=0;
         }
     }
 
@@ -290,10 +290,8 @@ public class HomeFragment extends Fragment {
                     HSadapter.addItem(schedule);
                     cnt+=1;
                 }
-
-
             });
-
+            cnt=0;
         }
     }
 
