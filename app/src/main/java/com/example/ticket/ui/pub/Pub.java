@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter @Setter
 public class Pub {
 
+    Long id;
     String name;
     String place;
     String game;
@@ -15,5 +16,6 @@ public class Pub {
     String intro;
     String poster;
 
-//    boolean clicked;
+    boolean clicked;
+
 }

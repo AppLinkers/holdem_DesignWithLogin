@@ -1,15 +1,19 @@
 package com.example.ticket.ui.mypage;
 
+import static android.content.ContentValues.TAG;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,8 +22,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ticket.R;
 import com.example.ticket.TicketUpload;
-import com.example.ticket.ui.pub.PRecycleAdapter;
+import com.example.ticket.ui.dataService.DataService;
+import com.example.ticket.ui.entity.HoldemPub;
 import com.example.ticket.ui.pub.Pub;
+
+import java.io.IOException;
+import java.util.List;
+
+import retrofit2.Call;
 
 public class MypageFragment extends Fragment {
 
@@ -29,6 +39,8 @@ public class MypageFragment extends Fragment {
     private LinearLayout goToSell;
     private RecyclerView preferRc;
     private PreferAdapter adapter;
+
+    DataService dataService = new DataService();
 
     // creating constant keys for shared preferences.
     public static final String SHARED_PREFS = "shared_prefs";
@@ -79,14 +91,49 @@ public class MypageFragment extends Fragment {
         return root;
     }
 
+    @SuppressLint({"StaticFieldLeak", "NewApi"})
     public void getData(){
-        Pub pub1 = new Pub("Final Nine","강남","데일리","14:00","Hi","");
-        Pub pub2 = new Pub("Battle PlayPub","홍대","대회","15:00","I'm","");
-        Pub pub3 = new Pub("레인보우","건대","데일리","16:00","hungry","");
+        AsyncTask<Void, Void, List<HoldemPub>> listAPI = new AsyncTask<Void, Void, List<HoldemPub>>() {
+            @Override
+            protected List<HoldemPub> doInBackground(Void... params) {
+                Call<List<HoldemPub>> call = dataService.holdemPubs.holdemPubs();
+                try {
+                    return call.execute().body();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
 
-        adapter.addItem(pub1);
-        adapter.addItem(pub2);
-        adapter.addItem(pub3);
+            @Override
+            protected void onPostExecute(List<HoldemPub> s) {
+                super.onPostExecute(s);
+            }
+        }.execute();
+
+
+        List<HoldemPub> result = null;
+
+        try {
+            result = listAPI.get();
+            Log.d(TAG, String.valueOf(result));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        boolean heart = true;
+
+        if (result != null) {
+            result.forEach(c -> {
+
+                if(!heart){
+                    Pub pub = new Pub(c.getId(), c.getPub_name(), c.getPub_place(), c.getGame().games(), c.getPub_open(), c.getPub_info(), c.getPub_img(), heart);
+                    adapter.addItem(pub);
+                }
+
+
+            });
+        }
 
     }
 
