@@ -39,6 +39,7 @@ public class MypageFragment extends Fragment {
     private LinearLayout goToSell;
     private RecyclerView preferRc;
     private PreferAdapter adapter;
+    String user_login_id = "";
 
     DataService dataService = new DataService();
 
@@ -56,7 +57,7 @@ public class MypageFragment extends Fragment {
 
         SharedPreferences preferences = this.getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
 
-        String user_login_id = preferences.getString(USER_LOGIN_ID_KEY, "아이디");
+        user_login_id = preferences.getString(USER_LOGIN_ID_KEY, "아이디");
         String user_name = preferences.getString(USER_NAME,"이름");
         String user_loc = preferences.getString(USER_LOC, "지역");
 
@@ -96,7 +97,7 @@ public class MypageFragment extends Fragment {
         AsyncTask<Void, Void, List<HoldemPub>> listAPI = new AsyncTask<Void, Void, List<HoldemPub>>() {
             @Override
             protected List<HoldemPub> doInBackground(Void... params) {
-                Call<List<HoldemPub>> call = dataService.holdemPubs.holdemPubs();
+                Call<List<HoldemPub>> call = dataService.holdemPubs.listHoldemPub(user_login_id);
                 try {
                     return call.execute().body();
                 } catch (IOException e) {
@@ -121,17 +122,11 @@ public class MypageFragment extends Fragment {
             e.printStackTrace();
         }
 
-        boolean heart = true;
 
         if (result != null) {
             result.forEach(c -> {
-
-                if(!heart){
-                    Pub pub = new Pub(c.getId(), c.getPub_name(), c.getPub_place(), c.getGame().games(), c.getPub_open(), c.getPub_info(), c.getPub_img(), heart);
+                    Pub pub = new Pub(c.getId(), c.getPub_name(), c.getPub_place(), c.getGame().games(), c.getPub_open(), c.getPub_info(), c.getPub_img(),false);
                     adapter.addItem(pub);
-                }
-
-
             });
         }
 
