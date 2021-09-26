@@ -13,9 +13,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ticket.R;
 import com.example.ticket.TicketUpload;
+import com.example.ticket.ui.pub.PRecycleAdapter;
+import com.example.ticket.ui.pub.Pub;
 
 public class MypageFragment extends Fragment {
 
@@ -23,6 +27,8 @@ public class MypageFragment extends Fragment {
     private TextView profileID;
     private TextView profileLoc;
     private LinearLayout goToSell;
+    private RecyclerView preferRc;
+    private PreferAdapter adapter;
 
     // creating constant keys for shared preferences.
     public static final String SHARED_PREFS = "shared_prefs";
@@ -52,18 +58,36 @@ public class MypageFragment extends Fragment {
         profileID.setText(user_login_id);
         profileLoc.setText(user_loc);
 
+        preferRc = root.findViewById(R.id.preferRc);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        preferRc.setLayoutManager(linearLayoutManager);
+
+        adapter =new PreferAdapter();
+        getData();
+        preferRc.setAdapter(adapter);
+
         goToSell = root.findViewById(R.id.gotoSell);
 
         goToSell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),"asdf",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), TicketUpload.class);
                 startActivity(intent);
             }
         });
 
         return root;
+    }
+
+    public void getData(){
+        Pub pub1 = new Pub("Final Nine","강남","데일리","14:00","Hi","");
+        Pub pub2 = new Pub("Battle PlayPub","홍대","대회","15:00","I'm","");
+        Pub pub3 = new Pub("레인보우","건대","데일리","16:00","hungry","");
+
+        adapter.addItem(pub1);
+        adapter.addItem(pub2);
+        adapter.addItem(pub3);
+
     }
 
 }
