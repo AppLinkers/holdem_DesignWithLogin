@@ -7,23 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical">
-<<<<<<< HEAD
-    
-=======
 
-
-
-
->>>>>>> f6dd24e91293a58e5b6acbe4898b938920a915d7
     <FrameLayout
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-<<<<<<< HEAD
+
         android:layout_above="@+id/bottom_navigation"/>
-=======
-        android:layout_above="@+id/bottom_navigation" />
->>>>>>> f6dd24e91293a58e5b6acbe4898b938920a915d7
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
