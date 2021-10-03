@@ -10,10 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -22,18 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ticket.R;
 import com.example.ticket.ui.dataService.DataService;
-import com.example.ticket.ui.entity.Competition;
-import com.example.ticket.ui.entity.Game;
 import com.example.ticket.ui.entity.HoldemPub;
-import com.example.ticket.ui.schedule.Schedule;
 
 import java.io.IOException;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class PubFragment extends Fragment {
 
