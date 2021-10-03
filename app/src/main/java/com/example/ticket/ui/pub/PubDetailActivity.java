@@ -49,7 +49,7 @@ public class PubDetailActivity extends AppCompatActivity {
         clicked = intent.getBooleanExtra("like",true);
 
         if(clicked){
-            pubHeart.setImageResource(R.drawable.ic_heart_black);
+       //     pubHeart.setImageResource(R.drawable.ic_heart_black);
             clicked =false;
         } else {
             clicked =true;

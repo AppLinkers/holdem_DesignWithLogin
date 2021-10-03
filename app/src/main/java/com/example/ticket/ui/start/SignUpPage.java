@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,7 @@ public class SignUpPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_sign_up_page);
 
         final EditText info_user_id = findViewById(R.id.info_user_id);
@@ -42,7 +44,7 @@ public class SignUpPage extends AppCompatActivity {
         final EditText info_user_loc = findViewById(R.id.info_user_loc);
 
         //SignUp
-        Button btn_signUp = findViewById(R.id.btn_signUp);
+        LinearLayout btn_signUp = findViewById(R.id.btn_signUp);
         btn_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -80,6 +80,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new ChatAdapter();
         adapter.setID(user_login_id);
@@ -89,6 +90,7 @@ public class ChatActivity extends AppCompatActivity {
         /**
          * 둘다 ticket id 로 처리
          */
+        recyclerView.scrollToPosition(adapter.getItemCount()-1);
         this.room = new Room(ticketId,ticketId);
         initStomp();
 

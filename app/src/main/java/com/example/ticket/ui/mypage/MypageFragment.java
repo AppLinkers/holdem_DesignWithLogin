@@ -80,9 +80,9 @@ public class MypageFragment extends Fragment {
     }
 
     public void getData(){
-        Pub pub1 = new Pub("Final Nine","강남","데일리","14:00","Hi","");
-        Pub pub2 = new Pub("Battle PlayPub","홍대","대회","15:00","I'm","");
-        Pub pub3 = new Pub("레인보우","건대","데일리","16:00","hungry","");
+        Pub pub1 = new Pub((long) 1,"Final Nine","강남","데일리","14:00","Hi","",false);
+        Pub pub2 = new Pub((long) 2,"Battle PlayPub","홍대","대회","15:00","I'm","",false);
+        Pub pub3 = new Pub((long) 3,"레인보우","건대","데일리","16:00","hungry","",false);
 
         adapter.addItem(pub1);
         adapter.addItem(pub2);
