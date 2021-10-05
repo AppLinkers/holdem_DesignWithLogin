@@ -94,11 +94,6 @@ public class MypageFragment extends Fragment {
 
     @SuppressLint({"StaticFieldLeak", "NewApi"})
     public void getData(){
-<<<<<<< HEAD
-        Pub pub1 = new Pub((long) 1,"Final Nine","강남","데일리","14:00","Hi","",false);
-        Pub pub2 = new Pub((long) 2,"Battle PlayPub","홍대","대회","15:00","I'm","",false);
-        Pub pub3 = new Pub((long) 3,"레인보우","건대","데일리","16:00","hungry","",false);
-=======
         AsyncTask<Void, Void, List<HoldemPub>> listAPI = new AsyncTask<Void, Void, List<HoldemPub>>() {
             @Override
             protected List<HoldemPub> doInBackground(Void... params) {
@@ -126,8 +121,6 @@ public class MypageFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
->>>>>>> b3b5d811ef99895c272bd54ec6994af6da3f127b
 
         if (result != null) {
             result.forEach(c -> {
