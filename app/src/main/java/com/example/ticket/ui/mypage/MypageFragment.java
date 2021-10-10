@@ -37,8 +37,13 @@ public class MypageFragment extends Fragment {
     private TextView profileID;
     private TextView profileLoc;
     private LinearLayout goToSell;
+
     private RecyclerView preferRc;
     private PreferAdapter adapter;
+
+    private RecyclerView mySellRc;
+    private MySellAdapter mySellAdapter;
+
     String user_login_id = "";
 
     DataService dataService = new DataService();
@@ -75,6 +80,14 @@ public class MypageFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         preferRc.setLayoutManager(linearLayoutManager);
 
+        mySellRc = root.findViewById(R.id.mySellRc);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext());
+        mySellRc.setLayoutManager(linearLayoutManager2);
+
+        mySellAdapter = new MySellAdapter();
+        getMySellData();
+        mySellRc.setAdapter(mySellAdapter);
+
         adapter =new PreferAdapter();
         getData();
         preferRc.setAdapter(adapter);
@@ -90,6 +103,46 @@ public class MypageFragment extends Fragment {
         });
 
         return root;
+    }
+
+    @SuppressLint({"StaticFieldLeak", "NewApi"})
+    public void getMySellData(){
+
+        AsyncTask<Void, Void, List<HoldemPub>> listAPI = new AsyncTask<Void, Void, List<HoldemPub>>() {
+            @Override
+            protected List<HoldemPub> doInBackground(Void... params) {
+                Call<List<HoldemPub>> call = dataService.holdemPubs.listHoldemPub(user_login_id);
+                try {
+                    return call.execute().body();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(List<HoldemPub> s) {
+                super.onPostExecute(s);
+            }
+        }.execute();
+
+
+        List<HoldemPub> result = null;
+
+        try {
+            result = listAPI.get();
+            Log.d(TAG, String.valueOf(result));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (result != null) {
+            result.forEach(c -> {
+                Pub pub = new Pub(c.getId(), c.getPub_name(), c.getPub_place(), c.getGame().games(), c.getPub_open(), c.getPub_info(), c.getPub_img(),false);
+                mySellAdapter.addItem(pub);
+            });
+        }
+
     }
 
     @SuppressLint({"StaticFieldLeak", "NewApi"})
@@ -121,7 +174,6 @@ public class MypageFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         if (result != null) {
             result.forEach(c -> {

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -47,6 +48,7 @@ public class SignInPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_sign_in_page);
 
         // initializing our shared preferences.
@@ -61,7 +63,7 @@ public class SignInPage extends AppCompatActivity {
         final EditText login_user_pass = findViewById(R.id.login_user_pass);
 
         // Login
-        Button btn_login = findViewById(R.id.btn_login);
+        LinearLayout btn_login = findViewById(R.id.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

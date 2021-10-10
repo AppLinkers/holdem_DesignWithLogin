@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/sellChat"
+        android:text="채팅방 "
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sellLocate"
+        android:layout_marginLeft="40dp"
+
+        android:text="지역 "/>
+
+    <Button
+        android:id="@+id/delSellBtn"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:text="del"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="10dp" />
+
+
+</LinearLayout>

@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -162,6 +163,7 @@
                     android:paddingLeft="10dp"
                     android:textColor="@color/black"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -179,6 +181,16 @@
                     android:text="티켓 판매 "
                     android:paddingLeft="10dp"
                     android:textColor="@color/black"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="20dp">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mySellRc"/>
             </LinearLayout>
 
             <LinearLayout
@@ -197,6 +209,7 @@
                     android:text="게임 규칙"
                     android:paddingLeft="10dp"
                     android:textColor="@color/black"/>
+
             </LinearLayout>
 
             <View
@@ -226,5 +239,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/preferRc"/>
         </LinearLayout>
+
+
+
     </ScrollView>
+
 </LinearLayout>
