@@ -66,7 +66,7 @@ public class MypageFragment extends Fragment {
 
         SharedPreferences preferences = this.getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
 
-        user_id = preferences.getLong(USER_ID_KEY, 0l);
+        user_id = preferences.getLong(USER_ID_KEY, 3l);
         user_login_id = preferences.getString(USER_LOGIN_ID_KEY, "아이디");
         String user_name = preferences.getString(USER_NAME,"이름");
         String user_loc = preferences.getString(USER_LOC, "지역");
