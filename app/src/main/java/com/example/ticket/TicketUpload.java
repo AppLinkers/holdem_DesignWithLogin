@@ -1,13 +1,17 @@
 package com.example.ticket;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -22,6 +26,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.ticket.ui.dataService.DataService;
+import com.example.ticket.ui.entity.TicketDto;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
@@ -30,9 +36,18 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
 
 public class TicketUpload extends AppCompatActivity {
 
+    DataService dataService = new DataService();
 
     private TextView upload_finish;
     private EditText et;
@@ -45,12 +60,41 @@ public class TicketUpload extends AppCompatActivity {
     private static final int PICK_FROM_CAMERA = 2;
 
     private File tempFile;
+    private File saved_file;
+
+    TextView ticket_name;
+    TextView ticket_place;
+    TextView ticket_price;
+
+    // creating constant keys for shared preferences.
+    public static final String SHARED_PREFS = "shared_prefs";
+
+    // key for storing Member
+    public static final String USER_ID_KEY = "user_id_key";
+
+    // variable for shared preferences.
+    SharedPreferences sharedPreferences;
+    Long user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_ticket_upload);
+
+        ticket_name = findViewById(R.id.upload_name);
+        ticket_place = findViewById(R.id.upload_place);
+        ticket_price = findViewById(R.id.upload_price);
+
+        Intent intent = getIntent();
+
+
+        // initializing our shared preferences.
+        sharedPreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+
+        // getting data from shared prefs and
+        // storing it in our string variable.
+        user_id = sharedPreferences.getLong(USER_ID_KEY, 3);
 
         tedPermission();
 
@@ -72,9 +116,34 @@ public class TicketUpload extends AppCompatActivity {
 
         //완료 버튼 이벤트
         upload_finish.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint({"StaticFieldLeak", "NewApi"})
             @Override
             public void onClick(View v) {
+                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), saved_file);
+                MultipartBody.Part body = MultipartBody.Part.createFormData("multipartFile", saved_file.getName(), requestFile);
+                Map<String, RequestBody> map = new HashMap<>();
+                map.put("ticket.ticket_name", RequestBody.create(MultipartBody.FORM, ticket_name.getText().toString()));
+                map.put("ticket.ticket_place", RequestBody.create(MultipartBody.FORM, ticket_place.getText().toString()));
+                map.put("ticket.ticket_price", RequestBody.create(MultipartBody.FORM, ticket_price.getText().toString().replaceAll("\\,", "")));
+                map.put("ticket.ticket_chatNum", RequestBody.create(MultipartBody.FORM, String.valueOf(0)));
+                map.put("ticket.member.id", RequestBody.create(MultipartBody.FORM, String.valueOf(user_id)));
+                AsyncTask<Void, Void, TicketDto> listAPI = new AsyncTask<Void, Void, TicketDto>() {
+                    @Override
+                    protected TicketDto doInBackground(Void... params) {
+                        Call<TicketDto> call = dataService.tickets.addTicket(body, map);
+                        try {
+                            return call.execute().body();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
 
+                    @Override
+                    protected void onPostExecute(TicketDto s) {
+                        super.onPostExecute(s);
+                    }
+                }.execute();
             }
         });
 
@@ -206,7 +275,7 @@ public class TicketUpload extends AppCompatActivity {
         BitmapFactory.Options options = new BitmapFactory.Options();
         Bitmap originalBm = BitmapFactory.decodeFile(tempFile.getAbsolutePath(), options);
         Log.d(TAG, "setImage : " + tempFile.getAbsolutePath());
-
+        saved_file = tempFile;
         imageView.setImageBitmap(originalBm);
 
         /**
