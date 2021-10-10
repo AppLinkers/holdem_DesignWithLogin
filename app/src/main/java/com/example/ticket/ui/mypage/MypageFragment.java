@@ -24,7 +24,9 @@ import com.example.ticket.R;
 import com.example.ticket.TicketUpload;
 import com.example.ticket.ui.dataService.DataService;
 import com.example.ticket.ui.entity.HoldemPub;
+import com.example.ticket.ui.entity.TicketDto;
 import com.example.ticket.ui.pub.Pub;
+import com.example.ticket.ui.ticket.Ticket;
 
 import java.io.IOException;
 import java.util.List;
@@ -45,6 +47,7 @@ public class MypageFragment extends Fragment {
     private MySellAdapter mySellAdapter;
 
     String user_login_id = "";
+    Long user_id = 0l;
 
     DataService dataService = new DataService();
 
@@ -52,6 +55,7 @@ public class MypageFragment extends Fragment {
     public static final String SHARED_PREFS = "shared_prefs";
 
     // key for storing Member
+    public static final String USER_ID_KEY = "user_id_key";
     public static final String USER_LOGIN_ID_KEY = "user_login_id_key";
     public static final String USER_NAME = "user_name_key";
     public static final String USER_LOC = "user_loc_key";
@@ -62,6 +66,7 @@ public class MypageFragment extends Fragment {
 
         SharedPreferences preferences = this.getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
 
+        user_id = preferences.getLong(USER_ID_KEY, 0l);
         user_login_id = preferences.getString(USER_LOGIN_ID_KEY, "아이디");
         String user_name = preferences.getString(USER_NAME,"이름");
         String user_loc = preferences.getString(USER_LOC, "지역");
@@ -108,10 +113,10 @@ public class MypageFragment extends Fragment {
     @SuppressLint({"StaticFieldLeak", "NewApi"})
     public void getMySellData(){
 
-        AsyncTask<Void, Void, List<HoldemPub>> listAPI = new AsyncTask<Void, Void, List<HoldemPub>>() {
+        AsyncTask<Void, Void, List<TicketDto>> listAPI = new AsyncTask<Void, Void, List<TicketDto>>() {
             @Override
-            protected List<HoldemPub> doInBackground(Void... params) {
-                Call<List<HoldemPub>> call = dataService.holdemPubs.listHoldemPub(user_login_id);
+            protected List<TicketDto> doInBackground(Void... params) {
+                Call<List<TicketDto>> call = dataService.tickets.findAllByMemberId(user_id);
                 try {
                     return call.execute().body();
                 } catch (IOException e) {
@@ -121,13 +126,13 @@ public class MypageFragment extends Fragment {
             }
 
             @Override
-            protected void onPostExecute(List<HoldemPub> s) {
+            protected void onPostExecute(List<TicketDto> s) {
                 super.onPostExecute(s);
             }
         }.execute();
 
 
-        List<HoldemPub> result = null;
+        List<TicketDto> result = null;
 
         try {
             result = listAPI.get();
@@ -138,12 +143,15 @@ public class MypageFragment extends Fragment {
 
         if (result != null) {
             result.forEach(c -> {
-                Pub pub = new Pub(c.getId(), c.getPub_name(), c.getPub_place(), c.getGame().games(), c.getPub_open(), c.getPub_info(), c.getPub_img(),false);
-                mySellAdapter.addItem(pub);
+                Ticket ticket = new Ticket(c.getId(),c.getTicket_name(),c.getTicket_place(),Integer.toString(c.getTicket_price()),c.getTicket_poster());
+                mySellAdapter.addItem(ticket);
             });
         }
 
     }
+
+
+
 
     @SuppressLint({"StaticFieldLeak", "NewApi"})
     public void getData(){
