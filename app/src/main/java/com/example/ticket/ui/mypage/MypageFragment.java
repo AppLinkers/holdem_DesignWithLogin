@@ -7,15 +7,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -70,6 +73,11 @@ public class MypageFragment extends Fragment {
         user_login_id = preferences.getString(USER_LOGIN_ID_KEY, "아이디");
         String user_name = preferences.getString(USER_NAME,"이름");
         String user_loc = preferences.getString(USER_LOC, "지역");
+
+        Window window = getActivity().getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(ContextCompat.getColor(getContext(),R.color.mypage_color));
+        }
 
         View root = inflater.inflate(R.layout.fragment_mypage,container,false);
 

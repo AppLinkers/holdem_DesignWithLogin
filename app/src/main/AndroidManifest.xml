@@ -11,7 +11,7 @@
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_main"
-        android:label="@string/app_name"
+        android:label="Ticket"
         android:roundIcon="@mipmap/ic_main_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ticket"
@@ -21,7 +21,8 @@
             android:exported="true" />
         <activity
             android:name=".ChatActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/LightTheme"/>
         <activity
             android:name=".ScheduleImageActivity"
             android:exported="true" />
@@ -43,7 +44,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.pub.PubDetailActivity" />
+        <activity android:name=".ui.pub.PubDetailActivity"
+                  android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
     </application>
 

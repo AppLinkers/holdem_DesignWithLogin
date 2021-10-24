@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +33,8 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ChatAdapter adapter;
     private EditText mycontext;
+
+    private Toolbar toolbar;
 
     // creating constant keys for shared preferences.
     public static final String SHARED_PREFS = "shared_prefs";
@@ -77,6 +80,11 @@ public class ChatActivity extends AppCompatActivity {
 
         mycontext = findViewById(R.id.mycontext);
         recyclerView = (RecyclerView)findViewById(R.id.rc_chat);
+
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("방장 이름");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
