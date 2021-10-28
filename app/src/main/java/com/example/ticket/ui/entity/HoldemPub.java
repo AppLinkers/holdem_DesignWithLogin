@@ -18,6 +18,7 @@ public class HoldemPub {
     private String pub_open;
     private String pub_place;
     private String pub_img;
+    private String pub_phone;
     private Game game;
 
 //    private boolean pub_clicked;

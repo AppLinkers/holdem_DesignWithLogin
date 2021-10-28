@@ -14,6 +14,7 @@ import com.example.ticket.ui.mypage.MypageFragment;
 import com.example.ticket.ui.pub.PubFragment;
 import com.example.ticket.ui.schedule.ScheduleFragment;
 import com.example.ticket.ui.ticket.TicketFragment;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.jetbrains.annotations.NotNull;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MobileAds.initialize(this);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
