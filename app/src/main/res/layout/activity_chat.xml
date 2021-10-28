@@ -8,13 +8,25 @@
     android:orientation="vertical"
     android:background="@color/white">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/toolbarCon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:backgroundTint="@color/mypage_color"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rc_chat"
         android:layout_width="match_parent"
-        android:layout_height="706dp"
+        android:layout_height="match_parent"
         android:paddingTop="15dp"
         android:layout_above="@+id/chat"
+        android:layout_below="@+id/toolbarCon"
         app:stackFromEnd="true"/>
 
     <RelativeLayout

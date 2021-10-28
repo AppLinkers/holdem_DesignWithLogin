@@ -22,18 +22,8 @@
                 android:paddingRight="25dp"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
-                android:background="#1E8E0000">
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/profileImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="35dp"
-                    >
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:src="@mipmap/ic_launcher_round"/>
-                </androidx.cardview.widget.CardView>
+                android:background="#192196F3">
+                
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -62,7 +52,7 @@
                     android:text="수정"
                     android:layout_weight="1"
                     android:textSize="12sp"
-                    android:textColor="#800000"/>
+                    android:textColor="#2196F3"/>
 
             </LinearLayout>
             <LinearLayout
@@ -70,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
-                android:background="#1E8E0000">
+                android:background="#192196F3">
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -90,8 +80,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:text="지역"
-                                android:textColor="#800000"
+                                android:textColor="#2196F3"
                                 android:textSize="13sp"
+                                android:textStyle="bold"
                                 android:gravity="center_vertical"
                                 android:layout_weight="1"
                                 android:paddingLeft="15dp"/>
@@ -102,7 +93,7 @@
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:paddingBottom="5dp"
-                                android:text="관심 대회"
+                                android:text="지 역"
                                 android:textColor="@color/black"
                                 android:textSize="18sp"/>
 
@@ -122,8 +113,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:text="구매 내역"
-                                android:textColor="#800000"
+                                android:textColor="#2196F3"
                                 android:textSize="13sp"
+                                android:textStyle="bold"
                                 android:gravity="center_vertical"
                                 android:layout_weight="1"
                                 android:paddingLeft="15dp"/>
