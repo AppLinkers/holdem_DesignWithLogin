@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ticket.R;
 import com.example.ticket.ui.dataService.DataService;
-import com.example.ticket.ui.entity.HoldemPub;
-import com.example.ticket.ui.pub.Pub;
 import com.example.ticket.ui.ticket.Ticket;
 
 import java.io.IOException;
@@ -22,6 +20,7 @@ import retrofit2.Call;
 public class MySellHolder extends RecyclerView.ViewHolder  {
 
     DataService dataService = new DataService();
+    MypageFragment mypageFragment = new MypageFragment();
 
     Long ticket_id = 0l;
 
@@ -56,6 +55,8 @@ public class MySellHolder extends RecyclerView.ViewHolder  {
                         super.onPostExecute(s);
                     }
                 }.execute();
+
+
             }
         });
     }

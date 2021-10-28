@@ -144,6 +144,18 @@ public class TicketUpload extends AppCompatActivity {
                         super.onPostExecute(s);
                     }
                 }.execute();
+
+                if(body != null && map !=null){
+                    Toast.makeText(getApplicationContext(), "업로드가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    ticket_name.setText("");
+                    ticket_price.setText("");
+                    ticket_place.setText("");
+                    Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent2);
+
+                }else{
+                    Toast.makeText(getApplicationContext(), "업로드에 실패하였습니다. ", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

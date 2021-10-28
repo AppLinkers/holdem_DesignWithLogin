@@ -89,9 +89,12 @@ public class MypageFragment extends Fragment {
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext());
         mySellRc.setLayoutManager(linearLayoutManager2);
 
+
+
         mySellAdapter = new MySellAdapter();
         getMySellData();
         mySellRc.setAdapter(mySellAdapter);
+
 
         adapter =new PreferAdapter();
         getData();
