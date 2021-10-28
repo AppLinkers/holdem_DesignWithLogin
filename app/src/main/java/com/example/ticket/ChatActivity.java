@@ -81,8 +81,9 @@ public class ChatActivity extends AppCompatActivity {
         mycontext = findViewById(R.id.mycontext);
         recyclerView = (RecyclerView)findViewById(R.id.rc_chat);
 
+
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("방장 이름");
+        toolbar.setTitle(intent.getExtras().getString("name"));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

@@ -1,5 +1,7 @@
 package com.example.ticket.ui.dataService;
 
+import com.example.ticket.ui.entity.HoldemPub;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

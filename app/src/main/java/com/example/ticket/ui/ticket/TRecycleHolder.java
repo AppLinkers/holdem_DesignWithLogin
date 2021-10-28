@@ -37,7 +37,11 @@ public class TRecycleHolder extends RecyclerView.ViewHolder{
             @Override
            public void onClick(View v) {
                Intent intent = new Intent(v.getContext(), ChatActivity.class);
+
+                String passName = name.getText()+"";
+
                 intent.putExtra("ticketId", ticketId);
+                intent.putExtra("name", passName);
                v.getContext().startActivity(intent);
             }
         });
