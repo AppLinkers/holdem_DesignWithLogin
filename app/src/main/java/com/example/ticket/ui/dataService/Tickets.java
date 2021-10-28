@@ -30,5 +30,5 @@ public interface Tickets {
 
     @GET("/ticket/remove/{ticket_id}")
     Call<Void> remove(@Path("ticket_id") Long ticket_id);
-
+    
 }
